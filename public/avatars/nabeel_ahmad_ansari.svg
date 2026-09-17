@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f0b686"/>
+      <stop offset="100%" stop-color="#de9c66"/>
+    </linearGradient>
+    <linearGradient id="jerseyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffd500"/>
+      <stop offset="100%" stop-color="#eab308"/>
+    </linearGradient>
+    <linearGradient id="blueJerseyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1d4ed8"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="hairGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#261c14"/>
+      <stop offset="100%" stop-color="#120c08"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Studio Background -->
+  <rect width="360" height="480" fill="url(#bgGrad)"/>
+  <circle cx="180" cy="180" r="140" fill="#ffffff" opacity="0.6"/>
+
+  <!-- Torso & Shoulders -->
+  <path d="M 60 480 C 65 370, 95 330, 140 315 L 220 315 C 265 330, 295 370, 300 480 Z" fill="url(#jerseyGrad)"/>
+
+  <!-- Navy & Blue Jersey Sleeves / Shoulders -->
+  <path d="M 60 480 C 65 370, 95 330, 120 325 L 85 480 Z" fill="url(#blueJerseyGrad)"/>
+  <path d="M 300 480 C 295 370, 265 330, 240 325 L 275 480 Z" fill="url(#blueJerseyGrad)"/>
+  
+  <!-- Blue jersey patterned shapes on shoulders -->
+  <path d="M 85 360 L 115 340 L 105 385 Z" fill="#3b82f6"/>
+  <path d="M 275 360 L 245 340 L 255 385 Z" fill="#3b82f6"/>
+  <path d="M 70 410 L 95 390 L 85 435 Z" fill="#ffd500"/>
+  <path d="M 290 410 L 265 390 L 275 435 Z" fill="#ffd500"/>
+
+  <!-- High-neck Inner Collar (Black Mock Collar) -->
+  <path d="M 152 300 C 152 285, 208 285, 208 300 L 210 325 C 190 332, 170 332, 150 325 Z" fill="#0f172a"/>
+
+  <!-- Jersey Collar V / Crew Neck -->
+  <path d="M 140 315 C 155 342, 205 342, 220 315 C 205 325, 155 325, 140 315 Z" fill="#1e3a8a"/>
+
+  <!-- Team Crest Badge (NEXTGEN F.A. PUNE) -->
+  <g transform="translate(210, 360)">
+    <!-- Badge shield -->
+    <path d="M 0 0 L 40 0 L 40 28 C 40 45, 20 54, 20 54 C 20 54, 0 45, 0 28 Z" fill="#ef4444" stroke="#ffffff" stroke-width="1.5"/>
+    <path d="M 4 4 L 36 4 L 36 26 C 36 40, 20 48, 20 48 C 20 48, 4 40, 4 26 Z" fill="#0f172a"/>
+    <!-- Soccer ball circle -->
+    <circle cx="20" cy="18" r="9" fill="#ffffff"/>
+    <circle cx="20" cy="18" r="8" fill="none" stroke="#000000" stroke-width="1"/>
+    <polygon points="20,14 24,17 22,22 18,22 16,17" fill="#000000"/>
+    <!-- Text banner -->
+    <rect x="-4" y="26" width="48" height="14" rx="2" fill="#ffffff" stroke="#0f172a" stroke-width="1"/>
+    <text x="20" y="36" font-family="Arial, sans-serif" font-size="7" font-weight="900" text-anchor="middle" fill="#0f172a">NEXTGEN</text>
+    <text x="20" y="46" font-family="Arial, sans-serif" font-size="6" font-weight="700" text-anchor="middle" fill="#ffffff">PUNE</text>
+  </g>
+
+  <!-- Neck -->
+  <rect x="156" y="240" width="48" height="65" rx="10" fill="url(#skinGrad)"/>
+  <!-- Neck shadow -->
+  <path d="M 156 240 C 170 262, 190 262, 204 240 L 204 265 C 180 275, 160 270, 156 265 Z" fill="#c47e4c" opacity="0.4"/>
+
+  <!-- Ears -->
+  <ellipse cx="120" cy="185" rx="14" ry="24" fill="url(#skinGrad)"/>
+  <ellipse cx="121" cy="185" rx="8" ry="14" fill="#c47e4c" opacity="0.4"/>
+  <ellipse cx="240" cy="185" rx="14" ry="24" fill="url(#skinGrad)"/>
+  <ellipse cx="239" cy="185" rx="8" ry="14" fill="#c47e4c" opacity="0.4"/>
+
+  <!-- Head Base / Face (Young Boy, Soft Round Jaw) -->
+  <path d="M 124 160 C 124 100, 236 100, 236 160 C 236 215, 218 250, 180 252 C 142 250, 124 215, 124 160 Z" fill="url(#skinGrad)"/>
+
+  <!-- Hair (Short cropped athletic cut with buzz texture) -->
+  <path d="M 118 160 C 118 78, 242 78, 242 160 C 242 165, 236 145, 232 140 C 220 115, 195 110, 180 115 C 165 110, 140 115, 128 140 C 124 145, 118 165, 118 160 Z" fill="url(#hairGrad)"/>
+  <!-- Hairline soft stubble line -->
+  <path d="M 124 150 C 135 125, 160 120, 180 123 C 200 120, 225 125, 236 150 C 234 135, 215 116, 180 116 C 145 116, 126 135, 124 150 Z" fill="#17100b"/>
+
+  <!-- Eyebrows (Neat, natural, expressive) -->
+  <path d="M 138 162 C 145 156, 158 156, 165 162" stroke="#261c14" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <path d="M 195 162 C 202 156, 215 156, 222 162" stroke="#261c14" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes (Warm brown, friendly, smiling crinkle) -->
+  <g transform="translate(151, 178)">
+    <ellipse cx="0" cy="0" rx="9" ry="6" fill="#ffffff"/>
+    <ellipse cx="0" cy="0" rx="5.5" ry="5.5" fill="#2d1b10"/>
+    <circle cx="0" cy="0" r="3" fill="#090503"/>
+    <circle cx="-2" cy="-2" r="1.5" fill="#ffffff"/>
+    <path d="M -9 -1 C -4 -6, 4 -6, 9 -1" stroke="#261c14" stroke-width="1.8" fill="none"/>
+  </g>
+  <g transform="translate(209, 178)">
+    <ellipse cx="0" cy="0" rx="9" ry="6" fill="#ffffff"/>
+    <ellipse cx="0" cy="0" rx="5.5" ry="5.5" fill="#2d1b10"/>
+    <circle cx="0" cy="0" r="3" fill="#090503"/>
+    <circle cx="-2" cy="-2" r="1.5" fill="#ffffff"/>
+    <path d="M -9 -1 C -4 -6, 4 -6, 9 -1" stroke="#261c14" stroke-width="1.8" fill="none"/>
+  </g>
+
+  <!-- Nose -->
+  <path d="M 180 178 L 180 203 C 176 206, 173 205, 171 203" stroke="#ba7544" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M 174 204 C 177 207, 183 207, 186 204" stroke="#ba7544" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+  <!-- Gentle Smile -->
+  <path d="M 162 218 C 170 230, 190 230, 198 218" stroke="#94472b" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <path d="M 166 220 C 173 226, 187 226, 194 220" fill="#ffffff" opacity="0.8"/>
+  <!-- Smile dimples -->
+  <circle cx="158" cy="217" r="1.5" fill="#b86940" opacity="0.5"/>
+  <circle cx="202" cy="217" r="1.5" fill="#b86940" opacity="0.5"/>
+
+  <!-- Student Name Banner Tag at bottom -->
+  <rect x="25" y="425" width="310" height="42" rx="10" fill="#09122c" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="180" y="445" font-family="'Rajdhani', Arial, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#ffffff">
+    NABEEL AHMAD ANSARI
+  </text>
+  <text x="180" y="459" font-family="'Rajdhani', Arial, sans-serif" font-size="10" font-weight="600" text-anchor="middle" fill="#38bdf8">
+    CanSat-30 • Mansukhbhai Kothari National School
+  </text>
+</svg>

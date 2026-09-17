@@ -1,0 +1,6 @@
+{
+  "name": "Antriksha - ISRO Micro-Satellite Network",
+  "description": "ISRO Micro-Satellite Telemetry & Academic Network Dashboard tracking registered child website satellite stations across India.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4a7c59"/>
+      <stop offset="35%" stop-color="#73a942"/>
+      <stop offset="70%" stop-color="#aad576"/>
+      <stop offset="100%" stop-color="#8fbc5a"/>
+    </linearGradient>
+    <radialGradient id="sun-glow" cx="80%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#fff4cc" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="shirt-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="60%" stop-color="#f0f4f8"/>
+      <stop offset="100%" stop-color="#d9e2ec"/>
+    </linearGradient>
+    <linearGradient id="tie-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="50%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <pattern id="tie-stripes" width="20" height="20" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="0" y2="20" stroke="#ffffff" stroke-width="6" />
+      <line x1="10" y1="0" x2="10" y2="20" stroke="#1d4ed8" stroke-width="14" />
+    </pattern>
+    <radialGradient id="face-grad" cx="48%" cy="40%" r="52%">
+      <stop offset="0%" stop-color="#edd1ba"/>
+      <stop offset="55%" stop-color="#dfb999"/>
+      <stop offset="100%" stop-color="#ca9c76"/>
+    </radialGradient>
+    <linearGradient id="hair-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2e2118"/>
+      <stop offset="60%" stop-color="#1b120c"/>
+      <stop offset="100%" stop-color="#0a0503"/>
+    </linearGradient>
+    <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Outdoor Natural Tree Canopy Background -->
+  <rect width="400" height="480" fill="url(#bg-grad)"/>
+  <rect width="400" height="480" fill="url(#sun-glow)"/>
+
+  <!-- Background Tree Trunks & Foliage -->
+  <path d="M 0 0 L 80 0 L 60 480 L 0 480 Z" fill="#4a3728" opacity="0.45"/>
+  <ellipse cx="60" cy="120" rx="90" ry="140" fill="#2d5a27" opacity="0.5"/>
+  <ellipse cx="350" cy="90" rx="80" ry="110" fill="#3e6b37" opacity="0.45"/>
+
+  <!-- Twin Ponytail Hair Cascading behind Shoulders -->
+  <path d="M 125 210 Q 105 280 120 370 Q 135 390 145 360 Q 140 280 135 220 Z" fill="url(#hair-grad)"/>
+  <path d="M 275 210 Q 295 280 280 370 Q 265 390 255 360 Q 260 280 265 220 Z" fill="url(#hair-grad)"/>
+
+  <!-- Body: School Uniform White Shirt with Navy/Grey Trousers -->
+  <!-- Shoulders / Arms -->
+  <path d="M 60 480 L 85 365 Q 120 330 165 330 L 235 330 Q 280 330 315 365 L 340 480 Z" fill="url(#shirt-grad)" filter="url(#soft-shadow)"/>
+
+  <!-- Grey/Black Uniform Trousers Waistband -->
+  <path d="M 130 440 L 270 440 L 275 480 L 125 480 Z" fill="#1e242b"/>
+  <!-- Belt -->
+  <rect x="135" y="442" width="130" height="14" rx="2" fill="#111417"/>
+  <rect x="188" y="440" width="24" height="18" rx="2" fill="#c0c7d0" stroke="#718096" stroke-width="1.5"/>
+
+  <!-- Shirt Collar -->
+  <path d="M 160 328 L 196 368 L 200 350 L 175 320 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <path d="M 240 328 L 204 368 L 200 350 L 225 320 Z" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- Neck -->
+  <path d="M 172 260 L 172 335 Q 200 350 228 335 L 228 260 Z" fill="#d2a681"/>
+  <path d="M 175 315 Q 200 330 225 315" fill="#b8835d" opacity="0.4"/>
+
+  <!-- School Necktie: Diagonal Striped Blue & White -->
+  <path d="M 190 348 L 210 348 L 206 368 L 194 368 Z" fill="#1e3a8a"/>
+  <!-- Tie Body -->
+  <path d="M 193 368 L 207 368 L 214 445 L 200 458 L 186 445 Z" fill="#1d4ed8"/>
+  <path d="M 193 368 L 207 368 L 214 445 L 200 458 L 186 445 Z" fill="url(#tie-stripes)" opacity="0.85"/>
+  <path d="M 193 368 L 207 368 L 214 445 L 200 458 L 186 445 Z" stroke="#1e3a8a" stroke-width="1.5" fill="none"/>
+
+  <!-- Ears -->
+  <ellipse cx="128" cy="215" rx="10" ry="18" fill="#d8a983"/>
+  <ellipse cx="272" cy="215" rx="10" ry="18" fill="#d8a983"/>
+
+  <!-- Head / Face -->
+  <ellipse cx="200" cy="205" rx="72" ry="86" fill="url(#face-grad)"/>
+
+  <!-- Cheek Shadows -->
+  <path d="M 136 195 Q 142 265 172 284 Q 200 294 228 284 Q 258 265 264 195 Q 252 276 200 288 Q 148 276 136 195 Z" fill="#c48f65" opacity="0.3"/>
+
+  <!-- Eyebrows (Neat, gently curved) -->
+  <path d="M 148 165 Q 170 154 188 162" stroke="#25160c" stroke-width="4.2" stroke-linecap="round" fill="none"/>
+  <path d="M 252 165 Q 230 154 212 162" stroke="#25160c" stroke-width="4.2" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes (Almond shaped, expressive) -->
+  <ellipse cx="168" cy="182" rx="13" ry="8.5" fill="#ffffff"/>
+  <ellipse cx="232" cy="182" rx="13" ry="8.5" fill="#ffffff"/>
+
+  <ellipse cx="168" cy="182" rx="7.5" ry="7.5" fill="#2d170b"/>
+  <ellipse cx="232" cy="182" rx="7.5" ry="7.5" fill="#2d170b"/>
+
+  <circle cx="168" cy="182" r="3.8" fill="#080301"/>
+  <circle cx="232" cy="182" r="3.8" fill="#080301"/>
+
+  <!-- Eye Catchlights -->
+  <circle cx="166" cy="179" r="2.2" fill="#ffffff"/>
+  <circle cx="230" cy="179" r="2.2" fill="#ffffff"/>
+  <circle cx="170" cy="184" r="1.1" fill="#ffffff" opacity="0.75"/>
+  <circle cx="234" cy="184" r="1.1" fill="#ffffff" opacity="0.75"/>
+
+  <!-- Upper Eyelids / Lashes -->
+  <path d="M 154 181 Q 168 174 182 182" stroke="#1d0d05" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M 218 181 Q 232 174 246 182" stroke="#1d0d05" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+
+  <!-- Nose -->
+  <path d="M 198 180 Q 194 212 190 224 Q 200 230 210 224 Q 206 212 202 180" fill="#ca956d" opacity="0.32"/>
+  <ellipse cx="200" cy="226" rx="7.5" ry="4" fill="#c38a5e" opacity="0.45"/>
+  <circle cx="194" cy="227" r="1.6" fill="#804a25"/>
+  <circle cx="206" cy="227" r="1.6" fill="#804a25"/>
+
+  <!-- Warm, Bright Confident Smile with Visible Teeth -->
+  <path d="M 174 248 Q 200 274 226 248 Q 200 254 174 248 Z" fill="#a8434e"/>
+  <!-- Teeth -->
+  <path d="M 180 251 Q 200 257 220 251 Q 215 259 200 260 Q 185 259 180 251 Z" fill="#ffffff"/>
+  <line x1="200" y1="251" x2="200" y2="259" stroke="#e2e8f0" stroke-width="1"/>
+  <!-- Upper Lip -->
+  <path d="M 174 248 Q 187 244 200 246 Q 213 244 226 248 Q 200 250 174 248 Z" fill="#ba5360"/>
+  <!-- Lower Lip -->
+  <path d="M 178 262 Q 200 275 222 262 Q 200 278 178 262 Z" fill="#c96775"/>
+
+  <!-- Hair Cut & Parting -->
+  <!-- Center/Side Parted Hair framing forehead -->
+  <path d="M 130 185 Q 124 125 160 85 Q 200 60 240 85 Q 276 125 270 185 Q 274 130 245 92 Q 200 70 155 92 Q 126 130 130 185 Z" fill="url(#hair-grad)"/>
+  <path d="M 134 165 Q 165 110 200 115 Q 155 125 138 175 Z" fill="url(#hair-grad)"/>
+  <path d="M 266 165 Q 235 110 200 115 Q 245 125 262 175 Z" fill="url(#hair-grad)"/>
+
+  <!-- Bottom Badge: Name & CanSat ID -->
+  <rect x="30" y="420" width="340" height="46" rx="12" fill="#09122c" stroke="#38bdf8" stroke-width="1.6"/>
+  <text x="200" y="442" font-family="'Rajdhani', Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">
+    SWARA DIGAMBAR RAKSHE
+  </text>
+  <text x="200" y="457" font-family="'Rajdhani', Arial, sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#38bdf8">
+    CanSat-13 • Apex International School
+  </text>
+</svg>

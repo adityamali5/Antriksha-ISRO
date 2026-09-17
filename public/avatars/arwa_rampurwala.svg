@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b4b9bf"/>
+      <stop offset="50%" stop-color="#cfd4da"/>
+      <stop offset="100%" stop-color="#a4a9af"/>
+    </linearGradient>
+    <linearGradient id="hood-grad" x1="0%" y1="0%" x2="40%" y2="100%">
+      <stop offset="0%" stop-color="#a8233a"/>
+      <stop offset="45%" stop-color="#8e1b30"/>
+      <stop offset="100%" stop-color="#6b1223"/>
+    </linearGradient>
+    <linearGradient id="hood-shadow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#540e1b"/>
+      <stop offset="100%" stop-color="#7a1728"/>
+    </linearGradient>
+    <radialGradient id="face-grad" cx="48%" cy="45%" r="52%">
+      <stop offset="0%" stop-color="#fce2d0"/>
+      <stop offset="65%" stop-color="#f4caa7"/>
+      <stop offset="100%" stop-color="#e2b28c"/>
+    </radialGradient>
+    <linearGradient id="lip-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#d46b7a"/>
+      <stop offset="50%" stop-color="#e88596"/>
+      <stop offset="100%" stop-color="#cb5f70"/>
+    </linearGradient>
+    <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Neutral Photography Studio Background -->
+  <rect width="400" height="480" fill="url(#bg-grad)"/>
+
+  <!-- Outer Hijab / Rida Cape Backdrop -->
+  <path d="M 30 480 Q 25 350 70 240 Q 120 130 190 40 Q 200 28 210 40 Q 280 130 330 240 Q 375 350 370 480 Z" fill="url(#hood-shadow)" filter="url(#soft-shadow)"/>
+  <path d="M 40 480 Q 35 360 80 250 Q 130 140 195 48 Q 200 42 205 48 Q 270 140 320 250 Q 365 360 360 480 Z" fill="url(#hood-grad)"/>
+
+  <!-- Fabric Folds & Pleats on Shoulder / Cape -->
+  <path d="M 90 480 Q 110 370 140 310" stroke="#520d18" stroke-width="4" fill="none" opacity="0.6"/>
+  <path d="M 130 480 Q 145 380 165 320" stroke="#520d18" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M 310 480 Q 290 370 260 310" stroke="#520d18" stroke-width="4" fill="none" opacity="0.6"/>
+  <path d="M 270 480 Q 255 380 235 320" stroke="#520d18" stroke-width="3" fill="none" opacity="0.6"/>
+
+  <!-- Chest Center Ruffle & Tie -->
+  <path d="M 188 280 L 190 480 L 210 480 L 212 280 Z" fill="#691222"/>
+  <path d="M 195 285 Q 185 320 192 360 Q 200 400 194 450" stroke="#aa2840" stroke-width="3.5" fill="none"/>
+  <path d="M 205 285 Q 215 320 208 360 Q 200 400 206 450" stroke="#520d18" stroke-width="3.5" fill="none"/>
+
+  <!-- Hijab Frame Over Forehead and Cheeks -->
+  <!-- Inner Hood Shadow Frame -->
+  <ellipse cx="200" cy="188" rx="84" ry="118" fill="#4d0c17"/>
+
+  <!-- Hijab Inner Forehead Band Wrap -->
+  <path d="M 125 150 Q 200 80 275 150 Q 200 102 125 150 Z" fill="#881a2e"/>
+
+  <!-- Face Oval -->
+  <ellipse cx="200" cy="196" rx="72" ry="94" fill="url(#face-grad)"/>
+
+  <!-- Face Contour Shadows -->
+  <path d="M 128 170 Q 126 230 155 270 Q 180 295 200 296 Q 220 295 245 270 Q 274 230 272 170 Q 255 260 200 286 Q 145 260 128 170 Z" fill="#cf9d75" opacity="0.3"/>
+
+  <!-- Elegant Eyebrows -->
+  <path d="M 152 148 Q 170 140 186 146" stroke="#3d2216" stroke-width="3.8" stroke-linecap="round" fill="none"/>
+  <path d="M 248 148 Q 230 140 214 146" stroke="#3d2216" stroke-width="3.8" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes Outer Sclera -->
+  <ellipse cx="168" cy="168" rx="14" ry="10" fill="#ffffff"/>
+  <ellipse cx="232" cy="168" rx="14" ry="10" fill="#ffffff"/>
+
+  <!-- Dark Brown Irises -->
+  <ellipse cx="168" cy="168" rx="8" ry="8" fill="#2c170d"/>
+  <ellipse cx="232" cy="168" rx="8" ry="8" fill="#2c170d"/>
+
+  <!-- Pupils -->
+  <circle cx="168" cy="168" r="4.2" fill="#0d0502"/>
+  <circle cx="232" cy="168" r="4.2" fill="#0d0502"/>
+
+  <!-- Eye Catchlight Glints -->
+  <circle cx="166" cy="165" r="2.2" fill="#ffffff"/>
+  <circle cx="230" cy="165" r="2.2" fill="#ffffff"/>
+  <circle cx="170" cy="170" r="1.1" fill="#ffffff" opacity="0.8"/>
+  <circle cx="234" cy="170" r="1.1" fill="#ffffff" opacity="0.8"/>
+
+  <!-- Eyelashes / Upper Eyelids -->
+  <path d="M 152 167 Q 168 158 184 167" stroke="#25120a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M 216 167 Q 232 158 248 167" stroke="#25120a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+
+  <!-- Soft Eyelid Creases -->
+  <path d="M 156 160 Q 168 154 180 160" stroke="#b87d55" stroke-width="1.2" fill="none" opacity="0.6"/>
+  <path d="M 220 160 Q 232 154 244 160" stroke="#b87d55" stroke-width="1.2" fill="none" opacity="0.6"/>
+
+  <!-- Refined Nose Bridge & Tip -->
+  <path d="M 197 165 Q 195 195 190 212 Q 200 218 210 212 Q 205 195 203 165" fill="#e0a982" opacity="0.35"/>
+  <ellipse cx="200" cy="214" rx="8" ry="4.5" fill="#d99970" opacity="0.5"/>
+  <path d="M 191 216 Q 195 219 200 219 Q 205 219 209 216" stroke="#aa6840" stroke-width="1.4" fill="none"/>
+  <circle cx="193" cy="216" r="1.6" fill="#884a28"/>
+  <circle cx="207" cy="216" r="1.6" fill="#884a28"/>
+
+  <!-- Gentle Confident Smile -->
+  <path d="M 174 246 Q 200 262 226 246 Q 200 252 174 246 Z" fill="url(#lip-grad)"/>
+  <!-- Upper Lip -->
+  <path d="M 176 246 Q 188 241 200 244 Q 212 241 224 246 Q 200 248 176 246 Z" fill="#b94f61"/>
+  <!-- Lip Part Line -->
+  <path d="M 176 246 Q 200 250 224 246" stroke="#7a2432" stroke-width="1.3" fill="none"/>
+  <!-- Gentle Lip Gloss Reflection -->
+  <ellipse cx="200" cy="253" rx="10" ry="2.5" fill="#ffffff" opacity="0.4"/>
+
+  <!-- Hijab Forehead Trim & Chin Clasp -->
+  <path d="M 125 158 Q 116 220 162 284 Q 185 304 200 306 Q 215 304 238 284 Q 284 220 275 158 Q 288 235 238 300 Q 200 318 162 300 Q 112 235 125 158 Z" fill="url(#hood-grad)"/>
+
+  <!-- Hijab Hem Stitch Detail along Face -->
+  <path d="M 126 158 Q 117 222 163 286 Q 185 305 200 307 Q 215 305 237 286 Q 283 222 274 158" stroke="#f68b9d" stroke-width="2" stroke-dasharray="3,3" fill="none" opacity="0.8"/>
+
+  <!-- Bottom Badge: Name & CanSat ID -->
+  <rect x="30" y="420" width="340" height="46" rx="12" fill="#09122c" stroke="#38bdf8" stroke-width="1.6"/>
+  <text x="200" y="442" font-family="'Rajdhani', Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">
+    ARWA RAMPURWALA
+  </text>
+  <text x="200" y="457" font-family="'Rajdhani', Arial, sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#38bdf8">
+    CanSat-03 • DR G.G.SHAH ENGLISH MEDIUM HIGH SCHOOL
+  </text>
+</svg>
