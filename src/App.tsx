@@ -289,9 +289,10 @@ export default function App() {
     return null;
   });
 
-  // Secret Admin shortcut: Pressing Ctrl + Space 2 times within 1200ms anywhere on the site opens the admin panel asking for the pass
+  // Secret Admin shortcut: Pressing Ctrl + Space 10 times consecutively opens the admin panel asking for the pass
   useEffect(() => {
-    let lastCtrlSpaceTime = 0;
+    let ctrlSpacePressCount = 0;
+    let resetTimer: any = null;
 
     const handleSecretKeyDown = (e: KeyboardEvent) => {
       // Check if Ctrl (or Meta on Mac) + Space is pressed
@@ -299,20 +300,29 @@ export default function App() {
         // Prevent default spacebar page scrolling
         e.preventDefault();
 
-        const now = Date.now();
-        if (now - lastCtrlSpaceTime < 1200) {
-          // Double press detected!
-          lastCtrlSpaceTime = 0;
+        ctrlSpacePressCount += 1;
+
+        // Reset the count if no press happens within 2 seconds
+        if (resetTimer) clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => {
+          ctrlSpacePressCount = 0;
+        }, 2000);
+
+        // 10 presses reached!
+        if (ctrlSpacePressCount >= 10) {
+          ctrlSpacePressCount = 0;
+          if (resetTimer) clearTimeout(resetTimer);
           setIsAdminLoggedIn(false); // Always prompt for password as requested
           setAdminModalOpen(true);
-        } else {
-          lastCtrlSpaceTime = now;
         }
       }
     };
 
     window.addEventListener('keydown', handleSecretKeyDown);
-    return () => window.removeEventListener('keydown', handleSecretKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleSecretKeyDown);
+      if (resetTimer) clearTimeout(resetTimer);
+    };
   }, []);
 
   useEffect(() => {
