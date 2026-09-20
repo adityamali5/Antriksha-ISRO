@@ -58,7 +58,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 dark:bg-[#050814]/80 backdrop-blur-md border-b border-slate-200 dark:border-[#00E5FF]/40 px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3 shadow-xs dark:shadow-2xl transition-colors">
+    <header className="sticky top-0 z-50 bg-white dark:bg-[#070d24] border-b-2 border-slate-200 dark:border-blue-900 px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3 shadow-md transition-colors">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-4">
         {/* Logo & Branding */}
         <div className="flex items-center gap-2 sm:gap-3 select-none shrink-0">
@@ -84,55 +84,55 @@ export const Header: React.FC<HeaderProps> = ({
             <SparkLogo size="sm" showSubtitle={true} />
           </a>
 
-          <div className="hidden sm:flex flex-col justify-center border-l border-slate-300 dark:border-white/20 pl-2.5">
+          <div className="flex flex-col justify-center border-l-2 border-slate-300 dark:border-white/30 pl-3">
             <div 
               className="flex items-center gap-2 cursor-pointer group"
               onClick={() => handleTabClick('dashboard')}
             >
-              <span className="font-orbitron font-extrabold text-xs md:text-sm lg:text-base text-slate-900 dark:text-white tracking-wider group-hover:text-amber-600 dark:group-hover:text-amber-500 transition-colors">
-                PROJECT ANTRIKSHA <span className="text-amber-600 dark:text-[#FF9933] font-black">अंतरिक्ष</span>
-              </span>
+              <h1 className="font-orbitron font-black text-sm sm:text-base md:text-xl lg:text-2xl text-slate-900 dark:text-white tracking-wider group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-tight">
+                PROJECT ANTRIKSHA <span className="text-amber-600 dark:text-[#FF9933] font-black tracking-normal">अंतरिक्ष</span>
+              </h1>
             </div>
-            <div className="flex items-center gap-2 mt-0.5">
+            <div className="flex items-center gap-2 mt-1">
               <a
                 href="https://www.isro.gov.in"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Visit ISRO Official Website (isro.gov.in)"
-                className="bg-white px-1.5 py-0.5 rounded border border-slate-200 dark:border-white/20 hover:scale-105 transition-transform inline-flex items-center shadow-xs"
+                className="bg-white px-1.5 py-0.5 rounded border border-slate-300 dark:border-white/30 hover:scale-105 transition-transform inline-flex items-center shadow-xs"
               >
                 <IsroLogo size="sm" variant="full" />
               </a>
               <p 
-                className="text-[10px] text-slate-600 dark:text-slate-400 font-rajdhani font-semibold cursor-pointer hover:text-slate-900 dark:hover:text-slate-200"
+                className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 font-rajdhani font-bold cursor-pointer hover:text-slate-950 dark:hover:text-white"
                 onClick={() => handleTabClick('dashboard')}
               >
-                Student Micro-Satellite Telemetry
+                Student Micro-Satellite Telemetry Network
               </p>
             </div>
           </div>
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 bg-slate-100/90 dark:bg-[#0A122E]/80 p-1 rounded-xl border border-slate-200/90 dark:border-[#00E5FF]/40 backdrop-blur-sm">
+        {/* Desktop Navigation - Abstract Solid Styled Tabs (No Glass Effect) */}
+        <nav className="hidden lg:flex items-center gap-1.5 bg-slate-200 dark:bg-[#070d24] p-1.5 rounded-2xl border-2 border-slate-300 dark:border-blue-900/60 shadow-sm">
           <button
             onClick={() => handleTabClick('dashboard')}
-            className={`flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 rounded-lg text-xs font-rajdhani font-bold transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-rajdhani font-black transition-all ${
               activeTab === 'dashboard'
-                ? 'bg-gradient-to-r from-[#FF9933] to-[#FF6600] text-slate-950 font-extrabold shadow-sm'
-                : 'text-slate-700 dark:text-white hover:bg-slate-200/80 dark:hover:bg-white/20'
+                ? 'bg-amber-500 text-slate-950 shadow-md border-2 border-amber-600 font-black'
+                : 'bg-white dark:bg-[#111e48] text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-[#192b66] border border-slate-300 dark:border-blue-800'
             }`}
           >
-            <LayoutDashboard className="w-4 h-4 shrink-0" />
+            <LayoutDashboard className="w-4 h-4 shrink-0 text-slate-950 dark:text-white" />
             <span>Dashboard</span>
           </button>
 
           <button
             onClick={() => handleTabClick('explorer')}
-            className={`flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 rounded-lg text-xs font-rajdhani font-bold transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-rajdhani font-black transition-all ${
               activeTab === 'explorer'
-                ? 'bg-gradient-to-r from-[#FF9933] to-[#FF6600] text-slate-950 font-extrabold shadow-sm'
-                : 'text-slate-700 dark:text-white hover:bg-slate-200/80 dark:hover:bg-white/20'
+                ? 'bg-blue-600 text-white shadow-md border-2 border-blue-700 font-black'
+                : 'bg-white dark:bg-[#111e48] text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-[#192b66] border border-slate-300 dark:border-blue-800'
             }`}
           >
             <Search className="w-4 h-4 shrink-0" />
@@ -141,10 +141,10 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={() => handleTabClick('map')}
-            className={`flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 rounded-lg text-xs font-rajdhani font-bold transition-all ${
+            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-rajdhani font-black transition-all ${
               activeTab === 'map'
-                ? 'bg-gradient-to-r from-[#FF9933] to-[#FF6600] text-slate-950 font-extrabold shadow-sm'
-                : 'text-slate-700 dark:text-white hover:bg-slate-200/80 dark:hover:bg-white/20'
+                ? 'bg-emerald-600 text-white shadow-md border-2 border-emerald-700 font-black'
+                : 'bg-white dark:bg-[#111e48] text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-[#192b66] border border-slate-300 dark:border-blue-800'
             }`}
           >
             <Map className="w-4 h-4 shrink-0" />
@@ -157,7 +157,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Admin Panel Button */}
           <button
             onClick={openAdminModal}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 dark:bg-[#00E5FF]/25 dark:hover:bg-[#00E5FF]/40 border border-sky-300 dark:border-[#00E5FF]/70 text-sky-800 dark:text-[#00E5FF] font-rajdhani font-bold text-xs transition-all shadow-xs backdrop-blur-sm cursor-pointer min-h-[38px]"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-700 dark:bg-cyan-600 dark:hover:bg-cyan-500 dark:border-cyan-400 font-rajdhani font-black text-xs transition-all shadow-sm cursor-pointer min-h-[38px]"
             title="Open ISRO Ground Station Admin Panel"
           >
             <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
@@ -196,11 +196,11 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden mt-3 pt-3 border-t border-slate-200 dark:border-[#00E5FF]/40 flex flex-col space-y-1.5 bg-white/95 dark:bg-[#050814]/95 backdrop-blur-md p-3 rounded-xl border border-slate-200 dark:border-white/10 shadow-lg">
+        <div className="xl:hidden mt-3 pt-3 border-t-2 border-slate-300 dark:border-blue-900 flex flex-col space-y-2 bg-white dark:bg-[#070d24] p-3 rounded-2xl border-2 border-slate-300 dark:border-blue-900 shadow-xl">
           <button
             onClick={() => handleTabClick('dashboard')}
-            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-rajdhani font-bold transition-all ${
-              activeTab === 'dashboard' ? 'bg-[#FF9933] text-slate-950' : 'bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-100'
+            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-rajdhani font-black transition-all ${
+              activeTab === 'dashboard' ? 'bg-amber-500 text-slate-950 border-2 border-amber-600 shadow-sm' : 'bg-slate-100 dark:bg-[#111e48] text-slate-900 dark:text-white border border-slate-200 dark:border-blue-800'
             }`}
           >
             <LayoutDashboard className="w-4 h-4" /> Dashboard Overview
@@ -208,8 +208,8 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={() => handleTabClick('explorer')}
-            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-rajdhani font-bold transition-all ${
-              activeTab === 'explorer' ? 'bg-[#FF9933] text-slate-950' : 'bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-100'
+            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-rajdhani font-black transition-all ${
+              activeTab === 'explorer' ? 'bg-blue-600 text-white border-2 border-blue-700 shadow-sm' : 'bg-slate-100 dark:bg-[#111e48] text-slate-900 dark:text-white border border-slate-200 dark:border-blue-800'
             }`}
           >
             <Search className="w-4 h-4" /> Satellite Directory ({totalSatellites})
@@ -217,20 +217,20 @@ export const Header: React.FC<HeaderProps> = ({
 
           <button
             onClick={() => handleTabClick('map')}
-            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-rajdhani font-bold transition-all ${
-              activeTab === 'map' ? 'bg-[#FF9933] text-slate-950' : 'bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-100'
+            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-rajdhani font-black transition-all ${
+              activeTab === 'map' ? 'bg-emerald-600 text-white border-2 border-emerald-700 shadow-sm' : 'bg-slate-100 dark:bg-[#111e48] text-slate-900 dark:text-white border border-slate-200 dark:border-blue-800'
             }`}
           >
             <Map className="w-4 h-4" /> Orbital Radar Map
           </button>
 
-          <div className="pt-2 border-t border-slate-200 dark:border-white/20 flex flex-col gap-2">
+          <div className="pt-2 border-t border-slate-200 dark:border-blue-900 flex flex-col gap-2">
             <button
               onClick={() => {
                 openAdminModal();
                 setMobileMenuOpen(false);
               }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-500/15 dark:bg-[#00E5FF]/30 border border-cyan-500/70 dark:border-[#00E5FF]/70 text-cyan-800 dark:text-[#00E5FF] font-rajdhani font-bold text-xs"
+              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-600 text-white border-2 border-cyan-700 font-rajdhani font-black text-xs"
             >
               <ShieldCheck className="w-4 h-4" /> Open ISRO Admin Panel
             </button>
@@ -240,7 +240,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => {
                   toggleTheme();
                 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/20 text-slate-800 dark:text-slate-100 font-rajdhani font-bold text-xs"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-[#111e48] border border-slate-300 dark:border-blue-800 text-slate-900 dark:text-slate-100 font-rajdhani font-black text-xs"
               >
                 {theme === 'dark' ? <Sun className="w-4 h-4 text-[#FF9933]" /> : <Moon className="w-4 h-4 text-sky-600" />}
                 <span>Switch to {theme === 'dark' ? 'Light' : 'Dark'} Theme</span>
