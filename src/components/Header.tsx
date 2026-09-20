@@ -128,19 +128,6 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           <button
-            onClick={() => handleTabClick('cansat')}
-            className={`flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 rounded-lg text-xs font-rajdhani font-bold transition-all relative ${
-              activeTab === 'cansat'
-                ? 'bg-gradient-to-r from-cyan-400 to-teal-500 text-slate-950 font-black shadow-sm'
-                : 'text-cyan-700 dark:text-[#00E5FF] hover:bg-cyan-500/10'
-            }`}
-          >
-            <Radio className="w-3.5 h-3.5 shrink-0 animate-pulse text-amber-600 dark:text-amber-400" />
-            <span>CanSat ESP32</span>
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0" />
-          </button>
-
-          <button
             onClick={() => handleTabClick('explorer')}
             className={`flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 rounded-lg text-xs font-rajdhani font-bold transition-all ${
               activeTab === 'explorer'
@@ -162,18 +149,6 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <Map className="w-4 h-4 shrink-0" />
             <span>Radar</span>
-          </button>
-
-          <button
-            onClick={() => handleTabClick('vision')}
-            className={`flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 rounded-lg text-xs font-rajdhani font-bold transition-all ${
-              activeTab === 'vision'
-                ? 'bg-gradient-to-r from-[#FF9933] to-[#FF6600] text-slate-950 font-extrabold shadow-sm'
-                : 'text-slate-700 dark:text-white hover:bg-slate-200/80 dark:hover:bg-white/20'
-            }`}
-          >
-            <Info className="w-4 h-4 shrink-0" />
-            <span>Mission</span>
           </button>
         </nav>
 
@@ -232,15 +207,6 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           <button
-            onClick={() => handleTabClick('cansat')}
-            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-rajdhani font-bold transition-all ${
-              activeTab === 'cansat' ? 'bg-[#00E5FF] text-slate-950 font-black' : 'bg-cyan-500/10 text-cyan-800 dark:text-[#00E5FF]'
-            }`}
-          >
-            <Radio className="w-4 h-4 text-amber-500 animate-pulse" /> CanSat ESP32 Hardware & Pen Drive (CCCOMA)
-          </button>
-
-          <button
             onClick={() => handleTabClick('explorer')}
             className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-rajdhani font-bold transition-all ${
               activeTab === 'explorer' ? 'bg-[#FF9933] text-slate-950' : 'bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-100'
@@ -256,15 +222,6 @@ export const Header: React.FC<HeaderProps> = ({
             }`}
           >
             <Map className="w-4 h-4" /> Orbital Radar Map
-          </button>
-
-          <button
-            onClick={() => handleTabClick('vision')}
-            className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-rajdhani font-bold transition-all ${
-              activeTab === 'vision' ? 'bg-[#FF9933] text-slate-950' : 'bg-slate-100 dark:bg-white/10 text-slate-800 dark:text-slate-100'
-            }`}
-          >
-            <Info className="w-4 h-4" /> ISRO Mission & Project Details
           </button>
 
           <div className="pt-2 border-t border-slate-200 dark:border-white/20 flex flex-col gap-2">
