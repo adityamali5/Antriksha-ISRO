@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { SatelliteNode } from '../types';
-import { Satellite, Wind, Thermometer, Activity, Clock, Building2, Radio, Maximize2, LayoutGrid, List, ChevronRight, ChevronLeft, Droplets } from 'lucide-react';
+import { Satellite, Wind, Thermometer, Activity, Clock, Building2, Radio, Maximize2, LayoutGrid, List, ChevronRight, ChevronLeft, Droplets, Gauge, Compass, Sparkles } from 'lucide-react';
 import L from 'leaflet';
 
 interface DashboardViewProps {
@@ -34,6 +34,16 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   const avgHumidity = validHumiditySats.length > 0 
     ? (validHumiditySats.reduce((acc, curr) => acc + (Number(curr.humidity) || 0), 0) / validHumiditySats.length).toFixed(1)
     : '78.5';
+
+  const validPressureSats = satellites.filter(s => typeof s.pressure === 'number' && !isNaN(s.pressure) && s.pressure > 300);
+  const avgPressure = validPressureSats.length > 0
+    ? (validPressureSats.reduce((acc, curr) => acc + (Number(curr.pressure) || 0), 0) / validPressureSats.length).toFixed(1)
+    : '948.2';
+
+  const validAltitudeSats = satellites.filter(s => typeof s.orbitAltitude === 'number' && !isNaN(s.orbitAltitude) && s.orbitAltitude > 0);
+  const avgAltitude = validAltitudeSats.length > 0
+    ? Math.round(validAltitudeSats.reduce((acc, curr) => acc + (Number(curr.orbitAltitude) || 0), 0) / validAltitudeSats.length)
+    : 520;
 
   const featuredNodes = satellites.slice(0, 6);
   const [featuredViewMode, setFeaturedViewMode] = useState<'grid' | 'list'>('grid');
@@ -159,89 +169,101 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   return (
     <div className="space-y-6 pb-12">
-      {/* Top Summary Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div className="glass-panel p-5 space-y-2 relative overflow-hidden group">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-rajdhani font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Total Ground Satellites
-            </span>
-            <div className="p-2.5 rounded-xl bg-sky-500/10 dark:bg-[#00E5FF]/10 text-sky-600 dark:text-[#00E5FF] border border-sky-500/30 dark:border-[#00E5FF]/30">
-              <Satellite className="w-5 h-5 group-hover:scale-110 transition-transform" />
+      {/* SECTION 1: TWO LARGE FEATURED TABS (Primary Colors: Royal Blue & Warm Sun Amber) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {/* Large Tab 1: Total Ground Satellites */}
+        <div className="p-6 rounded-3xl border-2 transition-all shadow-md relative overflow-hidden group bg-blue-50/90 border-blue-400 text-blue-950 dark:bg-[#0B1B3D] dark:border-blue-500/80 dark:text-white dark:shadow-[0_0_25px_rgba(37,99,235,0.25)] flex flex-col justify-between min-h-[170px]">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600 text-white dark:bg-blue-500/30 dark:text-blue-200 dark:border dark:border-blue-400 text-xs font-black uppercase tracking-wider shadow-xs mb-2">
+                <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse" />
+                <span>Total Ground Satellites</span>
+              </div>
+              <h3 className="text-sm md:text-base font-rajdhani font-bold text-blue-900 dark:text-blue-200">
+                Active Student Satellite Network
+              </h3>
+            </div>
+            <div className="p-3.5 rounded-2xl bg-blue-600 text-white dark:bg-blue-500 shadow-md group-hover:scale-110 transition-transform">
+              <Satellite className="w-7 h-7" />
             </div>
           </div>
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-3xl font-orbitron font-extrabold text-slate-900 dark:text-white">
+
+          <div className="mt-3 flex flex-wrap items-baseline gap-2">
+            <span className="text-4xl sm:text-5xl font-orbitron font-black text-blue-700 dark:text-blue-300 tracking-tight">
               {totalCount}
             </span>
-            <span className="text-lg font-orbitron font-bold text-slate-400 dark:text-slate-500">
+            <span className="text-xl sm:text-2xl font-orbitron font-bold text-blue-500/80 dark:text-blue-400">
               / 1200
             </span>
-            <span className="text-xs font-rajdhani font-bold text-emerald-600 dark:text-emerald-400 ml-1 uppercase">
-              Nodes Active
+            <span className="text-xs font-rajdhani font-extrabold px-2.5 py-1 rounded-lg bg-blue-200 text-blue-900 dark:bg-blue-400/20 dark:text-blue-300 uppercase ml-auto">
+              📡 Nodes Online
             </span>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-rajdhani font-semibold flex items-center gap-1">
-            <Activity className="w-3.5 h-3.5 text-emerald-500 animate-pulse" />
-            <span>{totalCount} out of 1200 network stations transmitting</span>
-          </p>
+
+          <div className="mt-3 pt-2.5 border-t border-blue-200/80 dark:border-blue-500/30 flex items-center justify-between text-xs font-rajdhani font-bold text-blue-800 dark:text-blue-300">
+            <span className="flex items-center gap-1.5">
+              <Activity className="w-4 h-4 text-blue-600 dark:text-blue-400 animate-pulse" />
+              <span>{totalCount} ground stations reporting live telemetry</span>
+            </span>
+            <span className="text-blue-600 dark:text-blue-400 font-extrabold hidden sm:inline">
+              ISRO IndoSpark
+            </span>
+          </div>
         </div>
 
-        {/* Shifting CanSat Live Telemetry Card */}
+        {/* Large Tab 2: Shifting CanSat Live Telemetry Card */}
         <div 
           onClick={() => currentCyclingSat && onSelectSatellite(currentCyclingSat)}
-          className="glass-panel p-5 space-y-2 relative overflow-hidden group cursor-pointer border-amber-500/30 dark:border-[#FF9933]/40 hover:border-amber-500 transition-all shadow-sm"
+          className="p-6 rounded-3xl border-2 transition-all shadow-md relative overflow-hidden group cursor-pointer bg-amber-50/90 border-amber-400 text-amber-950 dark:bg-[#2A1705] dark:border-amber-500/80 dark:text-white dark:shadow-[0_0_25px_rgba(245,158,11,0.25)] flex flex-col justify-between min-h-[170px]"
         >
           {/* Header with Title and Current CanSat Number */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
-              <span className="text-xs font-rajdhani font-bold uppercase tracking-wider text-slate-700 dark:text-slate-200">
-                Live Node Shift
-              </span>
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-red-500 animate-ping shrink-0" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-600 text-white dark:bg-amber-500/30 dark:text-amber-200 dark:border dark:border-amber-400 text-xs font-black uppercase tracking-wider shadow-xs">
+                <span>🔴 Live Node Shift</span>
+              </div>
             </div>
             
             {/* CanSat Number Badge */}
-            <div className="flex items-center gap-1">
-              <span className="px-2 py-0.5 rounded-full bg-amber-500/20 dark:bg-[#FF9933]/20 text-amber-800 dark:text-[#FF9933] border border-amber-500/40 dark:border-[#FF9933]/40 text-[11px] font-orbitron font-extrabold">
-                CanSat #{activeSatIndex + 1} of {totalCount}
-              </span>
-            </div>
+            <span className="px-3 py-1 rounded-full bg-amber-200/90 text-amber-900 dark:bg-amber-400/20 dark:text-amber-300 border border-amber-400/60 dark:border-amber-400/50 text-xs font-orbitron font-black shadow-xs">
+              CanSat #{activeSatIndex + 1} of {totalCount}
+            </span>
           </div>
 
-          {/* Current CanSat Name, ID & Telemetry */}
+          {/* Current CanSat Details & Live Numbers */}
           {currentCyclingSat ? (
-            <div className="space-y-1">
-              <div className="flex items-baseline justify-between gap-2">
+            <div className="mt-3 space-y-2">
+              <div className="flex items-baseline justify-between gap-3">
                 <div className="min-w-0">
-                  <div className="text-2xl font-orbitron font-black text-slate-900 dark:text-white truncate">
+                  <div className="text-2xl sm:text-3xl font-orbitron font-black text-amber-700 dark:text-amber-400 truncate">
                     {currentCyclingSat.satelliteId}
                   </div>
-                  <div className="text-xs font-rajdhani font-bold text-slate-600 dark:text-slate-300 truncate">
-                    {currentCyclingSat.collegeName}
+                  <div className="text-xs sm:text-sm font-rajdhani font-bold text-amber-900 dark:text-amber-200 truncate">
+                    {currentCyclingSat.studentName ? `${currentCyclingSat.studentName} • ` : ''}{currentCyclingSat.collegeName}
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <div className="text-xl font-orbitron font-bold text-amber-600 dark:text-[#FF9933]">
+                  <div className="text-2xl sm:text-3xl font-orbitron font-black text-amber-600 dark:text-amber-400">
                     {currentCyclingSat.temperature}°C
                   </div>
-                  <div className="text-[10px] font-rajdhani font-bold text-slate-500 dark:text-slate-400">
-                    Humidity {currentCyclingSat.humidity ?? 78}% • {currentCyclingSat.weatherCondition}
+                  <div className="text-xs font-rajdhani font-bold text-amber-800 dark:text-amber-300">
+                    💧 {currentCyclingSat.humidity ?? 78}% RH
                   </div>
                 </div>
               </div>
 
               {/* Cycling controls & location indicator */}
-              <div className="flex items-center justify-between pt-1.5 border-t border-slate-200/80 dark:border-white/10 text-xs font-rajdhani">
-                <span className="text-slate-500 dark:text-slate-400 truncate max-w-[120px]">
+              <div className="flex items-center justify-between pt-2 border-t border-amber-200/80 dark:border-amber-500/30 text-xs font-rajdhani font-bold text-amber-900 dark:text-amber-200">
+                <span className="truncate max-w-[150px] sm:max-w-[200px]">
                   📍 {currentCyclingSat.location}
                 </span>
 
-                <div className="flex items-center gap-1" onClick={e => e.stopPropagation()}>
+                <div className="flex items-center gap-1.5" onClick={e => e.stopPropagation()}>
                   <button
                     type="button"
                     onClick={() => setActiveSatIndex(prev => (prev - 1 + satellites.length) % (satellites.length || 1))}
-                    className="p-1 rounded hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors"
+                    className="px-2 py-1 rounded-lg bg-amber-200 hover:bg-amber-300 dark:bg-amber-500/20 dark:hover:bg-amber-500/40 text-amber-900 dark:text-amber-200 transition-colors"
                     title="Previous CanSat"
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
@@ -250,20 +272,20 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsAutoCycle(!isAutoCycle)}
-                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded transition-colors ${
+                    className={`text-[11px] font-black px-2.5 py-1 rounded-lg transition-colors ${
                       isAutoCycle
-                        ? 'bg-amber-500/20 text-amber-700 dark:text-[#FF9933]'
-                        : 'bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-400'
+                        ? 'bg-amber-600 text-white dark:bg-amber-500 dark:text-slate-950'
+                        : 'bg-slate-200 text-slate-800 dark:bg-white/10 dark:text-slate-300'
                     }`}
                     title={isAutoCycle ? 'Auto shifting active (shifts every 3.5s)' : 'Shifting paused'}
                   >
-                    {isAutoCycle ? 'Auto Shift' : 'Paused'}
+                    {isAutoCycle ? '🔄 Auto Shift' : '⏸️ Paused'}
                   </button>
 
                   <button
                     type="button"
                     onClick={() => setActiveSatIndex(prev => (prev + 1) % (satellites.length || 1))}
-                    className="p-1 rounded hover:bg-slate-200 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 transition-colors"
+                    className="px-2 py-1 rounded-lg bg-amber-200 hover:bg-amber-300 dark:bg-amber-500/20 dark:hover:bg-amber-500/40 text-amber-900 dark:text-amber-200 transition-colors"
                     title="Next CanSat"
                   >
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -272,45 +294,97 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               </div>
             </div>
           ) : (
-            <div className="text-xs text-slate-400 font-rajdhani">No telemetry stream available</div>
+            <div className="text-xs text-amber-600 dark:text-amber-400 font-rajdhani font-bold">No telemetry stream available</div>
           )}
         </div>
+      </div>
 
-        <div className="glass-panel p-5 space-y-2 relative overflow-hidden group">
+      {/* SECTION 2: FOUR PRIMARY-COLOURED METRIC TABS (Red, Cyan/Blue, Green, Purple) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Metric Tab 1: Avg Temperature (Primary Red) */}
+        <div className="p-4 sm:p-5 rounded-2xl border-2 transition-all shadow-sm hover:shadow-md bg-rose-50/90 border-rose-400 text-rose-950 dark:bg-[#2B0E14] dark:border-rose-500/80 dark:text-white dark:shadow-[0_0_20px_rgba(244,63,94,0.2)]">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-rajdhani font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Average Temperature
+            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-rose-900 dark:text-rose-300">
+              🌡️ Avg Temperature
             </span>
-            <div className="p-2.5 rounded-xl bg-emerald-500/10 dark:bg-[#00E676]/10 text-emerald-600 dark:text-[#00E676] border border-emerald-500/30 dark:border-[#00E676]/30">
-              <Thermometer className="w-5 h-5 group-hover:scale-110 transition-transform" />
+            <div className="p-2 rounded-xl bg-rose-500 text-white dark:bg-rose-600 shadow-xs">
+              <Thermometer className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl font-orbitron font-extrabold text-slate-900 dark:text-white">
+          <div className="mt-2 text-3xl font-orbitron font-black text-rose-600 dark:text-rose-400">
             {avgTemp} °C
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-rajdhani font-semibold">Continuous Calibrated Thermal Telemetry</p>
+          <p className="text-xs text-rose-800 dark:text-rose-300 font-rajdhani font-bold mt-1">
+            🔥 Space & Ground Warmth
+          </p>
         </div>
 
-        <div className="glass-panel p-5 space-y-2 relative overflow-hidden group">
+        {/* Metric Tab 2: Avg Humidity (Primary Sky Blue / Cyan) */}
+        <div className="p-4 sm:p-5 rounded-2xl border-2 transition-all shadow-sm hover:shadow-md bg-sky-50/90 border-sky-400 text-sky-950 dark:bg-[#071E2D] dark:border-sky-500/80 dark:text-white dark:shadow-[0_0_20px_rgba(14,165,233,0.2)]">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-rajdhani font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              Average Humidity
+            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-sky-900 dark:text-sky-300">
+              💧 Avg Humidity
             </span>
-            <div className="p-2.5 rounded-xl bg-sky-500/10 dark:bg-[#00E5FF]/10 text-sky-600 dark:text-[#00E5FF] border border-sky-500/30 dark:border-[#00E5FF]/30">
-              <Droplets className="w-5 h-5 group-hover:scale-110 transition-transform" />
+            <div className="p-2 rounded-xl bg-sky-500 text-white dark:bg-sky-600 shadow-xs">
+              <Droplets className="w-5 h-5" />
             </div>
           </div>
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-3xl font-orbitron font-extrabold text-slate-900 dark:text-white">
+          <div className="mt-2 flex items-baseline gap-1.5">
+            <span className="text-3xl font-orbitron font-black text-sky-600 dark:text-sky-400">
               {avgHumidity}
             </span>
-            <span className="text-lg font-orbitron font-bold text-sky-600 dark:text-[#00E5FF]">
+            <span className="text-lg font-orbitron font-bold text-sky-700 dark:text-sky-300">
               % RH
             </span>
           </div>
-          <p className="text-xs text-slate-500 dark:text-slate-400 font-rajdhani font-semibold flex items-center justify-between">
-            <span>Atmospheric Moisture</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-bold">Optimal Sensor Level</span>
+          <p className="text-xs text-sky-800 dark:text-sky-300 font-rajdhani font-bold mt-1">
+            ☁️ Air Moisture & Clouds
+          </p>
+        </div>
+
+        {/* Metric Tab 3: Avg Pressure (Primary Emerald Green) */}
+        <div className="p-4 sm:p-5 rounded-2xl border-2 transition-all shadow-sm hover:shadow-md bg-emerald-50/90 border-emerald-400 text-emerald-950 dark:bg-[#072418] dark:border-emerald-500/80 dark:text-white dark:shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-emerald-900 dark:text-emerald-300">
+              🌀 Avg Pressure
+            </span>
+            <div className="p-2 rounded-xl bg-emerald-500 text-white dark:bg-emerald-600 shadow-xs">
+              <Gauge className="w-5 h-5" />
+            </div>
+          </div>
+          <div className="mt-2 flex items-baseline gap-1.5">
+            <span className="text-3xl font-orbitron font-black text-emerald-600 dark:text-emerald-400">
+              {avgPressure}
+            </span>
+            <span className="text-sm font-orbitron font-bold text-emerald-700 dark:text-emerald-300">
+              hPa
+            </span>
+          </div>
+          <p className="text-xs text-emerald-800 dark:text-emerald-300 font-rajdhani font-bold mt-1">
+            ⚖️ Atmospheric Air Weight
+          </p>
+        </div>
+
+        {/* Metric Tab 4: Avg Altitude (Primary Purple / Violet) */}
+        <div className="p-4 sm:p-5 rounded-2xl border-2 transition-all shadow-sm hover:shadow-md bg-purple-50/90 border-purple-400 text-purple-950 dark:bg-[#1E0E2E] dark:border-purple-500/80 dark:text-white dark:shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-purple-900 dark:text-purple-300">
+              🚀 Avg Altitude
+            </span>
+            <div className="p-2 rounded-xl bg-purple-500 text-white dark:bg-purple-600 shadow-xs">
+              <Compass className="w-5 h-5" />
+            </div>
+          </div>
+          <div className="mt-2 flex items-baseline gap-1.5">
+            <span className="text-3xl font-orbitron font-black text-purple-600 dark:text-purple-400">
+              {avgAltitude}
+            </span>
+            <span className="text-sm font-orbitron font-bold text-purple-700 dark:text-purple-300">
+              Meters
+            </span>
+          </div>
+          <p className="text-xs text-purple-800 dark:text-purple-300 font-rajdhani font-bold mt-1">
+            ⭐ Flight Height in Sky
           </p>
         </div>
       </div>
