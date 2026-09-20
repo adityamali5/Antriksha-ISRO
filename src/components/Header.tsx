@@ -58,139 +58,144 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white dark:bg-[#070d24] border-b-2 border-slate-200 dark:border-blue-900 px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3 shadow-md transition-colors">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 sm:gap-4">
-        {/* Logo & Branding */}
-        <div className="flex items-center gap-2 sm:gap-3 select-none shrink-0">
-          {/* Indo Science Education Trust Logo Link */}
-          <a
-            href="https://indo-science.vercel.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Visit Indo Science (indo-science.vercel.app)"
-            className="bg-white p-1 md:p-1.5 rounded-xl border border-slate-200 dark:border-white/20 shadow-xs hover:shadow-sm transition-transform duration-300 hover:scale-105 flex items-center justify-center cursor-pointer shrink-0"
-          >
-            <IndoScienceLogo size="sm" showSubtext={true} />
-          </a>
-
-          {/* SPARK India Program Logo Link */}
-          <a
-            href="https://indo-science.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Visit SPARK India Program Portal (indo-science.vercel.app)"
-            className="bg-white p-1 md:p-1.5 rounded-xl border border-slate-200 dark:border-white/20 shadow-xs hover:shadow-sm transition-transform duration-300 hover:scale-105 flex items-center justify-center cursor-pointer shrink-0"
-          >
-            <SparkLogo size="sm" showSubtitle={true} />
-          </a>
-
-          <div className="flex flex-col justify-center border-l-2 border-slate-300 dark:border-white/30 pl-3">
-            <div 
-              className="flex items-center gap-2 cursor-pointer group"
-              onClick={() => handleTabClick('dashboard')}
+    <header className="sticky top-0 z-50 bg-white dark:bg-[#070d24] border-b-2 border-slate-200 dark:border-blue-900 px-3 sm:px-6 py-2.5 sm:py-3.5 shadow-md transition-colors">
+      <div className="max-w-7xl mx-auto flex flex-col gap-2.5">
+        {/* TOP ROW: Logos, Massive Full-Sized Title, and Quick Controls */}
+        <div className="flex items-center justify-between gap-3 select-none">
+          {/* Partner & Program Logos */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <a
+              href="https://indo-science.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Visit Indo Science (indo-science.vercel.app)"
+              className="bg-white p-1 md:p-1.5 rounded-xl border-2 border-slate-300 dark:border-blue-800 shadow-xs hover:scale-105 transition-transform flex items-center justify-center cursor-pointer shrink-0"
             >
-              <h1 className="font-orbitron font-black text-sm sm:text-base md:text-xl lg:text-2xl text-slate-900 dark:text-white tracking-wider group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-tight">
-                PROJECT ANTRIKSHA <span className="text-amber-600 dark:text-[#FF9933] font-black tracking-normal">अंतरिक्ष</span>
-              </h1>
-            </div>
-            <div className="flex items-center gap-2 mt-1">
-              <a
-                href="https://www.isro.gov.in"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Visit ISRO Official Website (isro.gov.in)"
-                className="bg-white px-1.5 py-0.5 rounded border border-slate-300 dark:border-white/30 hover:scale-105 transition-transform inline-flex items-center shadow-xs"
+              <IndoScienceLogo size="sm" showSubtext={true} />
+            </a>
+
+            <a
+              href="https://indo-science.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Visit SPARK India Program Portal (indo-science.vercel.app)"
+              className="bg-white p-1 md:p-1.5 rounded-xl border-2 border-slate-300 dark:border-blue-800 shadow-xs hover:scale-105 transition-transform flex items-center justify-center cursor-pointer shrink-0"
+            >
+              <SparkLogo size="sm" showSubtitle={true} />
+            </a>
+
+            <a
+              href="https://www.isro.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Visit ISRO Official Website (isro.gov.in)"
+              className="bg-white p-1 md:p-1.5 rounded-xl border-2 border-slate-300 dark:border-blue-800 shadow-xs hover:scale-105 transition-transform inline-flex items-center shrink-0"
+            >
+              <IsroLogo size="sm" variant="full" />
+            </a>
+          </div>
+
+          {/* Full-Sized Heading Title */}
+          <div 
+            className="flex-1 flex flex-col items-center sm:items-start pl-1 sm:pl-3 cursor-pointer group"
+            onClick={() => handleTabClick('dashboard')}
+          >
+            <h1 className="font-orbitron font-black text-lg sm:text-2xl md:text-3xl lg:text-4xl text-slate-900 dark:text-white tracking-wider group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors leading-none uppercase">
+              PROJECT ANTRIKSHA <span className="text-amber-600 dark:text-[#FF9933] font-black tracking-normal">अंतरिक्ष</span>
+            </h1>
+            <p className="text-[11px] sm:text-xs md:text-sm text-slate-600 dark:text-slate-300 font-rajdhani font-bold tracking-wide mt-0.5">
+              ISRO IndoSpark Student Micro-Satellite Telemetry Network
+            </p>
+          </div>
+
+          {/* Right utility buttons: Admin, Theme, Mobile toggle */}
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {/* Admin Panel Button */}
+            <button
+              onClick={openAdminModal}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-700 dark:bg-cyan-600 dark:hover:bg-cyan-500 dark:border-cyan-400 font-rajdhani font-black text-xs transition-all shadow-sm cursor-pointer min-h-[36px]"
+              title="Open ISRO Ground Station Admin Panel"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+              <span>{isAdminLoggedIn ? 'Admin Active' : 'Admin'}</span>
+            </button>
+
+            {/* THEME TOGGLE BUTTON */}
+            {toggleTheme && (
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border-2 text-xs font-rajdhani font-black transition-all bg-white hover:bg-slate-100 dark:bg-[#111e48] border-slate-300 dark:border-blue-800 text-slate-900 dark:text-slate-100 min-h-[36px] shadow-xs cursor-pointer shrink-0"
+                title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+                aria-label="Toggle Theme"
               >
-                <IsroLogo size="sm" variant="full" />
-              </a>
-              <p 
-                className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-300 font-rajdhani font-bold cursor-pointer hover:text-slate-950 dark:hover:text-white"
-                onClick={() => handleTabClick('dashboard')}
-              >
-                Student Micro-Satellite Telemetry Network
-              </p>
-            </div>
+                {theme === 'dark' ? (
+                  <Sun className="w-4 h-4 text-[#FF9933] animate-spin-slow shrink-0" />
+                ) : (
+                  <Moon className="w-4 h-4 text-sky-600 shrink-0" />
+                )}
+                <span className="text-[11px] font-extrabold uppercase tracking-wider hidden md:inline">
+                  {theme === 'dark' ? 'Light' : 'Dark'}
+                </span>
+              </button>
+            )}
+
+            {/* Mobile Menu Toggle Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="lg:hidden p-2 rounded-xl bg-white dark:bg-[#111e48] border-2 border-slate-300 dark:border-blue-800 text-slate-900 dark:text-white transition-all min-h-[36px] min-w-[36px] flex items-center justify-center cursor-pointer shadow-xs shrink-0"
+              aria-label="Toggle Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
 
-        {/* Desktop Navigation - Abstract Solid Styled Tabs (No Glass Effect) */}
-        <nav className="hidden lg:flex items-center gap-1.5 bg-slate-200 dark:bg-[#070d24] p-1.5 rounded-2xl border-2 border-slate-300 dark:border-blue-900/60 shadow-sm">
-          <button
-            onClick={() => handleTabClick('dashboard')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-rajdhani font-black transition-all ${
-              activeTab === 'dashboard'
-                ? 'bg-amber-500 text-slate-950 shadow-md border-2 border-amber-600 font-black'
-                : 'bg-white dark:bg-[#111e48] text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-[#192b66] border border-slate-300 dark:border-blue-800'
-            }`}
-          >
-            <LayoutDashboard className="w-4 h-4 shrink-0 text-slate-950 dark:text-white" />
-            <span>Dashboard</span>
-          </button>
-
-          <button
-            onClick={() => handleTabClick('explorer')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-rajdhani font-black transition-all ${
-              activeTab === 'explorer'
-                ? 'bg-blue-600 text-white shadow-md border-2 border-blue-700 font-black'
-                : 'bg-white dark:bg-[#111e48] text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-[#192b66] border border-slate-300 dark:border-blue-800'
-            }`}
-          >
-            <Search className="w-4 h-4 shrink-0" />
-            <span>Satellites</span>
-          </button>
-
-          <button
-            onClick={() => handleTabClick('map')}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-rajdhani font-black transition-all ${
-              activeTab === 'map'
-                ? 'bg-emerald-600 text-white shadow-md border-2 border-emerald-700 font-black'
-                : 'bg-white dark:bg-[#111e48] text-slate-800 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-[#192b66] border border-slate-300 dark:border-blue-800'
-            }`}
-          >
-            <Map className="w-4 h-4 shrink-0" />
-            <span>Radar</span>
-          </button>
-        </nav>
-
-        {/* Header Right Controls */}
-        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          {/* Admin Panel Button */}
-          <button
-            onClick={openAdminModal}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-700 dark:bg-cyan-600 dark:hover:bg-cyan-500 dark:border-cyan-400 font-rajdhani font-black text-xs transition-all shadow-sm cursor-pointer min-h-[38px]"
-            title="Open ISRO Ground Station Admin Panel"
-          >
-            <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-            <span>{isAdminLoggedIn ? 'Admin Active' : 'Admin'}</span>
-          </button>
-
-          {/* THEME TOGGLE BUTTON - ALWAYS VISIBLE ON ALL SCREENS */}
-          {toggleTheme && (
+        {/* BOTTOM ROW: Navigation Tabs Placed Directly Underneath the Antriksha Name */}
+        <div className="hidden lg:flex items-center justify-between pt-1 border-t border-slate-200 dark:border-blue-900/60">
+          <nav className="flex items-center gap-2">
             <button
-              onClick={toggleTheme}
-              className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border text-xs font-rajdhani font-bold transition-all backdrop-blur-sm bg-white hover:bg-slate-50 dark:bg-white/10 border-slate-200 dark:border-white/20 text-slate-800 dark:text-slate-100 hover:text-slate-950 dark:hover:text-white min-h-[38px] hover:border-amber-400 dark:hover:border-[#FF9933]/70 shadow-xs cursor-pointer shrink-0"
-              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
-              aria-label="Toggle Theme"
+              onClick={() => handleTabClick('dashboard')}
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs sm:text-sm font-rajdhani font-black transition-all ${
+                activeTab === 'dashboard'
+                  ? 'bg-amber-500 text-slate-950 shadow-md border-2 border-amber-600 font-black scale-105'
+                  : 'bg-slate-100 dark:bg-[#111e48] text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-[#192b66] border-2 border-slate-300 dark:border-blue-800'
+              }`}
             >
-              {theme === 'dark' ? (
-                <Sun className="w-4 h-4 text-[#FF9933] animate-spin-slow shrink-0" />
-              ) : (
-                <Moon className="w-4 h-4 text-sky-600 shrink-0" />
-              )}
-              <span className="text-[11px] font-extrabold uppercase tracking-wider hidden sm:inline">
-                {theme === 'dark' ? 'Light' : 'Dark'}
-              </span>
+              <LayoutDashboard className="w-4 h-4 shrink-0 text-slate-950 dark:text-white" />
+              <span>Dashboard Overview</span>
             </button>
-          )}
 
-          {/* Mobile Menu Toggle Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="2xl:hidden p-2 rounded-xl bg-white dark:bg-black/40 border border-slate-200 dark:border-white/30 text-slate-800 dark:text-white hover:bg-slate-50 dark:hover:bg-black/60 transition-all min-h-[38px] min-w-[38px] flex items-center justify-center cursor-pointer shadow-xs shrink-0"
-            aria-label="Toggle Menu"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+            <button
+              onClick={() => handleTabClick('explorer')}
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs sm:text-sm font-rajdhani font-black transition-all ${
+                activeTab === 'explorer'
+                  ? 'bg-blue-600 text-white shadow-md border-2 border-blue-700 font-black scale-105'
+                  : 'bg-slate-100 dark:bg-[#111e48] text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-[#192b66] border-2 border-slate-300 dark:border-blue-800'
+              }`}
+            >
+              <Search className="w-4 h-4 shrink-0" />
+              <span>Satellites Directory ({totalSatellites})</span>
+            </button>
+
+            <button
+              onClick={() => handleTabClick('map')}
+              className={`flex items-center gap-2 px-4 py-1.5 rounded-xl text-xs sm:text-sm font-rajdhani font-black transition-all ${
+                activeTab === 'map'
+                  ? 'bg-emerald-600 text-white shadow-md border-2 border-emerald-700 font-black scale-105'
+                  : 'bg-slate-100 dark:bg-[#111e48] text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-[#192b66] border-2 border-slate-300 dark:border-blue-800'
+              }`}
+            >
+              <Map className="w-4 h-4 shrink-0" />
+              <span>Orbital Radar Map</span>
+            </button>
+          </nav>
+
+          <div className="flex items-center gap-2 text-xs font-rajdhani font-bold text-slate-600 dark:text-slate-400">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+              <span>Live Ground Feed Active</span>
+            </span>
+          </div>
         </div>
       </div>
 
