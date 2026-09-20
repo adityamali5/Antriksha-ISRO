@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e2e7e3"/>
+      <stop offset="50%" stop-color="#edf2ee"/>
+      <stop offset="100%" stop-color="#d6ddd8"/>
+    </linearGradient>
+    <linearGradient id="shirt-lime" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#80ab30"/>
+      <stop offset="50%" stop-color="#93c437"/>
+      <stop offset="100%" stop-color="#7ea72d"/>
+    </linearGradient>
+    <radialGradient id="face-grad" cx="48%" cy="42%" r="52%">
+      <stop offset="0%" stop-color="#e8b990"/>
+      <stop offset="55%" stop-color="#dda57a"/>
+      <stop offset="100%" stop-color="#c98e63"/>
+    </radialGradient>
+    <linearGradient id="hair-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3d2a1d"/>
+      <stop offset="50%" stop-color="#24170d"/>
+      <stop offset="100%" stop-color="#140a04"/>
+    </linearGradient>
+    <linearGradient id="frames-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e2c4f"/>
+      <stop offset="50%" stop-color="#0e172e"/>
+      <stop offset="100%" stop-color="#050a18"/>
+    </linearGradient>
+    <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- Neutral Off-White Photography Backdrop -->
+  <rect width="400" height="480" fill="url(#bg-grad)"/>
+
+  <!-- Body / Lime Green Polo Shirt with Navy and White accents -->
+  <path d="M 50 480 Q 75 360 145 340 L 165 375 L 235 375 L 255 340 Q 325 360 350 480 Z" fill="url(#shirt-lime)"/>
+  
+  <!-- Navy Blue Right Shoulder Block -->
+  <path d="M 50 480 L 105 480 L 85 365 Q 65 390 50 480 Z" fill="#1b2845"/>
+  <!-- White Stripe on Shoulder -->
+  <path d="M 105 480 L 122 480 L 108 355 L 94 358 Z" fill="#ffffff"/>
+
+  <!-- Polo Collar (Lime with White piping trim) -->
+  <path d="M 140 338 L 180 395 L 200 375 L 170 332 Z" fill="#8cb933" stroke="#ffffff" stroke-width="2.5"/>
+  <path d="M 260 338 L 220 395 L 200 375 L 230 332 Z" fill="#7fa92e" stroke="#ffffff" stroke-width="2.5"/>
+  <path d="M 190 370 L 210 370 L 208 420 L 192 420 Z" fill="#6f9526"/>
+
+  <!-- Neck -->
+  <path d="M 165 280 L 165 350 Q 200 370 235 350 L 235 280 Z" fill="#c4875c"/>
+  <path d="M 170 325 Q 200 345 230 325" fill="#a76a40" opacity="0.4"/>
+
+  <!-- Ears -->
+  <ellipse cx="118" cy="225" rx="14" ry="24" fill="#cb8f65"/>
+  <ellipse cx="120" cy="225" rx="7" ry="14" fill="#a86a42"/>
+  <ellipse cx="282" cy="225" rx="14" ry="24" fill="#cb8f65"/>
+  <ellipse cx="280" cy="225" rx="7" ry="14" fill="#a86a42"/>
+
+  <!-- Head / Face -->
+  <ellipse cx="200" cy="215" rx="78" ry="96" fill="url(#face-grad)"/>
+
+  <!-- Cheek / Jaw Contours -->
+  <path d="M 132 210 Q 138 280 170 302 Q 200 312 230 302 Q 262 280 268 210 Q 255 292 200 306 Q 145 292 132 210 Z" fill="#b97c4e" opacity="0.3"/>
+
+  <!-- Natural Eyebrows -->
+  <path d="M 142 165 Q 170 155 190 162" stroke="#2a1a10" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+  <path d="M 258 165 Q 230 155 210 162" stroke="#2a1a10" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes behind glasses -->
+  <ellipse cx="166" cy="188" rx="15" ry="10" fill="#ffffff"/>
+  <ellipse cx="234" cy="188" rx="15" ry="10" fill="#ffffff"/>
+
+  <ellipse cx="166" cy="188" rx="8.5" ry="8.5" fill="#2d1a0e"/>
+  <ellipse cx="234" cy="188" rx="8.5" ry="8.5" fill="#2d1a0e"/>
+
+  <circle cx="166" cy="188" r="4.2" fill="#080402"/>
+  <circle cx="234" cy="188" r="4.2" fill="#080402"/>
+
+  <circle cx="163" cy="185" r="2.2" fill="#ffffff"/>
+  <circle cx="231" cy="185" r="2.2" fill="#ffffff"/>
+
+  <!-- Glasses: Dark Navy Rectangular Frames -->
+  <!-- Left frame rim -->
+  <rect x="135" y="168" width="58" height="38" rx="8" fill="none" stroke="url(#frames-grad)" stroke-width="6"/>
+  <!-- Right frame rim -->
+  <rect x="207" y="168" width="58" height="38" rx="8" fill="none" stroke="url(#frames-grad)" stroke-width="6"/>
+  <!-- Bridge -->
+  <path d="M 193 178 Q 200 175 207 178" stroke="url(#frames-grad)" stroke-width="6" fill="none"/>
+  <!-- Side temples -->
+  <path d="M 135 178 L 118 184" stroke="url(#frames-grad)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M 265 178 L 282 184" stroke="url(#frames-grad)" stroke-width="5" stroke-linecap="round"/>
+  <!-- Subtle glass glare reflection -->
+  <path d="M 142 174 L 180 174 L 165 200 L 140 200 Z" fill="#ffffff" opacity="0.12"/>
+  <path d="M 214 174 L 252 174 L 237 200 L 212 200 Z" fill="#ffffff" opacity="0.12"/>
+
+  <!-- Nose -->
+  <path d="M 198 186 Q 194 220 188 238 Q 200 245 212 238 Q 206 220 202 186" fill="#bf8152" opacity="0.35"/>
+  <ellipse cx="200" cy="240" rx="9" ry="5" fill="#ba7745" opacity="0.5"/>
+  <circle cx="193" cy="242" r="2" fill="#754320"/>
+  <circle cx="207" cy="242" r="2" fill="#754320"/>
+
+  <!-- Mouth & Lips -->
+  <path d="M 178 274 Q 200 279 222 274 Q 200 286 178 274 Z" fill="#b06c55"/>
+  <path d="M 180 274 Q 200 277 220 274" stroke="#683420" stroke-width="1.8" fill="none"/>
+
+  <!-- Hair Cut (Short cropped, slightly brushed to the side) -->
+  <path d="M 126 185 Q 118 135 150 95 Q 200 60 260 85 Q 284 125 276 185 Q 282 135 264 100 Q 215 75 160 102 Q 124 135 126 185 Z" fill="url(#hair-grad)"/>
+  <path d="M 130 155 Q 155 105 200 95 Q 250 100 272 150 Q 250 115 200 112 Q 155 120 130 155 Z" fill="url(#hair-grad)"/>
+
+  <!-- Bottom Badge: Name & CanSat ID -->
+  <rect x="30" y="420" width="340" height="46" rx="12" fill="#09122c" stroke="#38bdf8" stroke-width="1.6"/>
+  <text x="200" y="442" font-family="'Rajdhani', Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">
+    VED SACHIN KHER
+  </text>
+  <text x="200" y="457" font-family="'Rajdhani', Arial, sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#38bdf8">
+    CanSat-09 • Versatile School
+  </text>
+</svg>

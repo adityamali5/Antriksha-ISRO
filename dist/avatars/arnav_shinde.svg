@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eaeff5"/>
+      <stop offset="50%" stop-color="#f5f7fa"/>
+      <stop offset="100%" stop-color="#dce3ec"/>
+    </linearGradient>
+    <linearGradient id="blazer-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="50%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <radialGradient id="face-grad" cx="48%" cy="40%" r="52%">
+      <stop offset="0%" stop-color="#f0d5be"/>
+      <stop offset="55%" stop-color="#e0bb9c"/>
+      <stop offset="100%" stop-color="#ca9a75"/>
+    </radialGradient>
+    <linearGradient id="hair-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#342217"/>
+      <stop offset="60%" stop-color="#1c1109"/>
+      <stop offset="100%" stop-color="#0a0502"/>
+    </linearGradient>
+    <linearGradient id="glasses-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#090d16"/>
+    </linearGradient>
+    <filter id="soft-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Clean Off-White / Pale Grey Portrait Studio Background -->
+  <rect width="400" height="480" fill="url(#bg-grad)"/>
+
+  <!-- Body: Apex International School Black / Dark Navy Blazer with White Piping -->
+  <path d="M 40 480 L 68 345 Q 115 310 165 310 L 235 310 Q 285 310 332 345 L 360 480 Z" fill="url(#blazer-grad)" filter="url(#soft-shadow)"/>
+
+  <!-- White Piping along Blazer Lapels -->
+  <path d="M 112 480 L 136 360 L 175 322" stroke="#ffffff" stroke-width="2.5" fill="none" opacity="0.95"/>
+  <path d="M 288 480 L 264 360 L 225 322" stroke="#ffffff" stroke-width="2.5" fill="none" opacity="0.95"/>
+
+  <!-- White Inner Shirt Collar -->
+  <path d="M 158 314 L 194 360 L 200 344 L 176 308 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2"/>
+  <path d="M 242 314 L 206 360 L 200 344 L 224 308 Z" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.2"/>
+
+  <!-- Neck -->
+  <path d="M 172 250 L 172 324 Q 200 338 228 324 L 228 250 Z" fill="#d4a680"/>
+  <path d="M 175 306 Q 200 320 225 306" fill="#ba845c" opacity="0.4"/>
+
+  <!-- Dark Tie -->
+  <path d="M 193 340 L 207 340 L 204 360 L 196 360 Z" fill="#0b1320"/>
+  <path d="M 194 360 L 206 360 L 212 445 L 200 458 L 188 445 Z" fill="#111c2d" stroke="#050a12" stroke-width="1.2"/>
+
+  <!-- Navy Lanyard Ribbon with White Text "INTERNATIONAL SCHOOL" -->
+  <path d="M 172 330 L 206 480 L 218 480 L 184 330 Z" fill="#0f172a"/>
+  <text x="210" y="420" font-family="'Arial', sans-serif" font-size="7" font-weight="700" fill="#ffffff" transform="rotate(78 210 420)" letter-spacing="1">
+    INTERNATIONAL SCHOOL
+  </text>
+
+  <!-- Apex School Crest on Left Lapel -->
+  <g transform="translate(265, 415) scale(0.65)">
+    <circle cx="20" cy="20" r="18" fill="#1e293b" stroke="#f43f5e" stroke-width="2"/>
+    <circle cx="20" cy="20" r="12" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <path d="M 16 20 L 20 12 L 24 20 L 20 28 Z" fill="#fbbf24"/>
+  </g>
+
+  <!-- Ears -->
+  <ellipse cx="124" cy="208" rx="11" ry="20" fill="#cca07a"/>
+  <ellipse cx="124" cy="208" rx="6" ry="12" fill="#a8744f"/>
+  <ellipse cx="276" cy="208" rx="11" ry="20" fill="#cca07a"/>
+  <ellipse cx="276" cy="208" rx="6" ry="12" fill="#a8744f"/>
+
+  <!-- Head / Face -->
+  <ellipse cx="200" cy="200" rx="72" ry="86" fill="url(#face-grad)"/>
+
+  <!-- Soft Cheek & Jaw Shadows -->
+  <path d="M 136 190 Q 142 260 172 280 Q 200 290 228 280 Q 258 260 264 190 Q 252 272 200 284 Q 148 272 136 190 Z" fill="#be8a61" opacity="0.32"/>
+
+  <!-- Short Boyish Hair with Neat Crown -->
+  <path d="M 124 165 Q 118 105 158 68 Q 200 45 242 68 Q 282 105 276 165 Q 272 110 240 75 Q 200 58 160 75 Q 128 110 124 165 Z" fill="url(#hair-grad)"/>
+  <path d="M 124 140 Q 155 85 200 88 Q 245 85 276 140 Q 250 95 200 95 Q 150 95 124 140 Z" fill="url(#hair-grad)"/>
+
+  <!-- Eyebrows (Dark, slightly angled) -->
+  <path d="M 148 152 Q 170 144 188 150" stroke="#251408" stroke-width="4.2" stroke-linecap="round" fill="none"/>
+  <path d="M 252 152 Q 230 144 212 150" stroke="#251408" stroke-width="4.2" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes behind Glasses -->
+  <ellipse cx="168" cy="172" rx="14" ry="9" fill="#ffffff"/>
+  <ellipse cx="232" cy="172" rx="14" ry="9" fill="#ffffff"/>
+
+  <ellipse cx="168" cy="172" rx="8" ry="8" fill="#291508"/>
+  <ellipse cx="232" cy="172" rx="8" ry="8" fill="#291508"/>
+
+  <circle cx="168" cy="172" r="4" fill="#080301"/>
+  <circle cx="232" cy="172" r="4" fill="#080301"/>
+
+  <!-- Eye Catchlights -->
+  <circle cx="166" cy="169" r="2.2" fill="#ffffff"/>
+  <circle cx="230" cy="169" r="2.2" fill="#ffffff"/>
+
+  <!-- Upper Eyelid / Crease -->
+  <path d="M 154 170 Q 168 162 182 171" stroke="#1d0d04" stroke-width="2.2" fill="none"/>
+  <path d="M 218 170 Q 232 162 246 171" stroke="#1d0d04" stroke-width="2.2" fill="none"/>
+
+  <!-- Stylish Rectangular Dark Grey Glasses Frames -->
+  <rect x="136" y="152" width="58" height="38" rx="8" fill="none" stroke="url(#glasses-grad)" stroke-width="5.5"/>
+  <rect x="206" y="152" width="58" height="38" rx="8" fill="none" stroke="url(#glasses-grad)" stroke-width="5.5"/>
+  <!-- Glasses Bridge -->
+  <path d="M 194 162 Q 200 158 206 162" stroke="url(#glasses-grad)" stroke-width="5.5" fill="none"/>
+  <!-- Temples extending to ears -->
+  <path d="M 136 162 L 124 168" stroke="url(#glasses-grad)" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M 264 162 L 276 168" stroke="url(#glasses-grad)" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- Subtle anti-reflective blue-white lens sheen -->
+  <path d="M 144 156 L 180 156 L 166 182 L 140 182 Z" fill="#93c5fd" opacity="0.2"/>
+  <path d="M 214 156 L 250 156 L 236 182 L 210 182 Z" fill="#93c5fd" opacity="0.2"/>
+
+  <!-- Nose -->
+  <path d="M 198 174 Q 194 206 190 218 Q 200 224 210 218 Q 206 206 202 174" fill="#c38d64" opacity="0.32"/>
+  <ellipse cx="200" cy="220" rx="7.5" ry="4" fill="#bb8054" opacity="0.45"/>
+  <circle cx="194" cy="221" r="1.6" fill="#753f1a"/>
+  <circle cx="206" cy="221" r="1.6" fill="#753f1a"/>
+
+  <!-- Friendly Youthful Smile (Gentle Closed Lips) -->
+  <path d="M 176 244 Q 200 258 224 244 Q 200 250 176 244 Z" fill="#ad5548"/>
+  <path d="M 176 244 Q 188 240 200 242 Q 212 240 224 244 Q 200 245 176 244 Z" fill="#b96356"/>
+  <path d="M 176 244 Q 200 247 224 244" stroke="#682920" stroke-width="1.4" fill="none"/>
+  <ellipse cx="200" cy="251" rx="8" ry="2" fill="#ffffff" opacity="0.25"/>
+
+  <!-- Bottom Badge: Name & CanSat ID -->
+  <rect x="30" y="420" width="340" height="46" rx="12" fill="#09122c" stroke="#38bdf8" stroke-width="1.6"/>
+  <text x="200" y="442" font-family="'Rajdhani', Arial, sans-serif" font-size="15" font-weight="700" text-anchor="middle" fill="#ffffff">
+    ARNAV SHINDE
+  </text>
+  <text x="200" y="457" font-family="'Rajdhani', Arial, sans-serif" font-size="11" font-weight="600" text-anchor="middle" fill="#38bdf8">
+    CanSat-11 • Apex International School
+  </text>
+</svg>

@@ -169,43 +169,43 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   return (
     <div className="space-y-6 pb-12">
-      {/* SECTION 1: TWO LARGE FEATURED TABS (Primary Colors: Royal Blue & Warm Sun Amber) */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      {/* SECTION 1: TWO LARGE FEATURED TABS (Solid Primary Colors: Royal Blue & Warm Sun Amber) */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Large Tab 1: Total Ground Satellites */}
-        <div className="p-6 rounded-3xl border-2 transition-all shadow-md relative overflow-hidden group bg-blue-50/90 border-blue-400 text-blue-950 dark:bg-[#0B1B3D] dark:border-blue-500/80 dark:text-white dark:shadow-[0_0_25px_rgba(37,99,235,0.25)] flex flex-col justify-between min-h-[170px]">
+        <div className="p-4 sm:p-5 rounded-2xl border-2 transition-all shadow-md relative overflow-hidden group bg-blue-100 border-blue-500 text-blue-950 dark:bg-[#0c1f4a] dark:border-blue-500 dark:text-white dark:shadow-[0_0_20px_rgba(37,99,235,0.3)] flex flex-col justify-between">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600 text-white dark:bg-blue-500/30 dark:text-blue-200 dark:border dark:border-blue-400 text-xs font-black uppercase tracking-wider shadow-xs mb-2">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-600 text-white dark:bg-blue-600 dark:text-white text-xs font-black uppercase tracking-wider shadow-xs mb-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-yellow-300 animate-pulse" />
                 <span>Total Ground Satellites</span>
               </div>
-              <h3 className="text-sm md:text-base font-rajdhani font-bold text-blue-900 dark:text-blue-200">
+              <h3 className="text-xs sm:text-sm font-rajdhani font-bold text-blue-900 dark:text-blue-200">
                 Active Student Satellite Network
               </h3>
             </div>
-            <div className="p-3.5 rounded-2xl bg-blue-600 text-white dark:bg-blue-500 shadow-md group-hover:scale-110 transition-transform">
-              <Satellite className="w-7 h-7" />
+            <div className="p-2.5 rounded-xl bg-blue-600 text-white dark:bg-blue-600 shadow-md group-hover:scale-110 transition-transform">
+              <Satellite className="w-6 h-6" />
             </div>
           </div>
 
-          <div className="mt-3 flex flex-wrap items-baseline gap-2">
-            <span className="text-4xl sm:text-5xl font-orbitron font-black text-blue-700 dark:text-blue-300 tracking-tight">
+          <div className="mt-2 flex flex-wrap items-baseline gap-2">
+            <span className="text-3xl sm:text-4xl font-orbitron font-black text-blue-700 dark:text-blue-300 tracking-tight">
               {totalCount}
             </span>
-            <span className="text-xl sm:text-2xl font-orbitron font-bold text-blue-500/80 dark:text-blue-400">
+            <span className="text-lg sm:text-xl font-orbitron font-bold text-blue-600 dark:text-blue-400">
               / 1200
             </span>
-            <span className="text-xs font-rajdhani font-extrabold px-2.5 py-1 rounded-lg bg-blue-200 text-blue-900 dark:bg-blue-400/20 dark:text-blue-300 uppercase ml-auto">
+            <span className="text-xs font-rajdhani font-extrabold px-2 py-0.5 rounded-md bg-blue-200 text-blue-900 dark:bg-blue-900 dark:text-blue-100 uppercase ml-auto">
               📡 Nodes Online
             </span>
           </div>
 
-          <div className="mt-3 pt-2.5 border-t border-blue-200/80 dark:border-blue-500/30 flex items-center justify-between text-xs font-rajdhani font-bold text-blue-800 dark:text-blue-300">
+          <div className="mt-2.5 pt-2 border-t border-blue-300 dark:border-blue-700/60 flex items-center justify-between text-xs font-rajdhani font-bold text-blue-800 dark:text-blue-200">
             <span className="flex items-center gap-1.5">
-              <Activity className="w-4 h-4 text-blue-600 dark:text-blue-400 animate-pulse" />
+              <Activity className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 animate-pulse" />
               <span>{totalCount} ground stations reporting live telemetry</span>
             </span>
-            <span className="text-blue-600 dark:text-blue-400 font-extrabold hidden sm:inline">
+            <span className="text-blue-700 dark:text-blue-300 font-extrabold hidden sm:inline">
               ISRO IndoSpark
             </span>
           </div>
@@ -214,47 +214,47 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         {/* Large Tab 2: Shifting CanSat Live Telemetry Card */}
         <div 
           onClick={() => currentCyclingSat && onSelectSatellite(currentCyclingSat)}
-          className="p-6 rounded-3xl border-2 transition-all shadow-md relative overflow-hidden group cursor-pointer bg-amber-50/90 border-amber-400 text-amber-950 dark:bg-[#2A1705] dark:border-amber-500/80 dark:text-white dark:shadow-[0_0_25px_rgba(245,158,11,0.25)] flex flex-col justify-between min-h-[170px]"
+          className="p-4 sm:p-5 rounded-2xl border-2 transition-all shadow-md relative overflow-hidden group cursor-pointer bg-amber-100 border-amber-500 text-amber-950 dark:bg-[#331a04] dark:border-amber-500 dark:text-white dark:shadow-[0_0_20px_rgba(245,158,11,0.3)] flex flex-col justify-between"
         >
           {/* Header with Title and Current CanSat Number */}
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <span className="w-3 h-3 rounded-full bg-red-500 animate-ping shrink-0" />
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-600 text-white dark:bg-amber-500/30 dark:text-amber-200 dark:border dark:border-amber-400 text-xs font-black uppercase tracking-wider shadow-xs">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping shrink-0" />
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-600 text-white dark:bg-amber-600 dark:text-white text-xs font-black uppercase tracking-wider shadow-xs">
                 <span>🔴 Live Node Shift</span>
               </div>
             </div>
             
             {/* CanSat Number Badge */}
-            <span className="px-3 py-1 rounded-full bg-amber-200/90 text-amber-900 dark:bg-amber-400/20 dark:text-amber-300 border border-amber-400/60 dark:border-amber-400/50 text-xs font-orbitron font-black shadow-xs">
+            <span className="px-2.5 py-0.5 rounded-full bg-amber-200 text-amber-950 dark:bg-amber-900 dark:text-amber-100 border border-amber-400 dark:border-amber-600 text-xs font-orbitron font-black shadow-xs">
               CanSat #{activeSatIndex + 1} of {totalCount}
             </span>
           </div>
 
           {/* Current CanSat Details & Live Numbers */}
           {currentCyclingSat ? (
-            <div className="mt-3 space-y-2">
+            <div className="mt-2 space-y-1.5">
               <div className="flex items-baseline justify-between gap-3">
                 <div className="min-w-0">
-                  <div className="text-2xl sm:text-3xl font-orbitron font-black text-amber-700 dark:text-amber-400 truncate">
+                  <div className="text-xl sm:text-2xl font-orbitron font-black text-amber-800 dark:text-amber-300 truncate">
                     {currentCyclingSat.satelliteId}
                   </div>
-                  <div className="text-xs sm:text-sm font-rajdhani font-bold text-amber-900 dark:text-amber-200 truncate">
+                  <div className="text-xs sm:text-sm font-rajdhani font-bold text-amber-950 dark:text-amber-100 truncate">
                     {currentCyclingSat.studentName ? `${currentCyclingSat.studentName} • ` : ''}{currentCyclingSat.collegeName}
                   </div>
                 </div>
                 <div className="text-right shrink-0">
-                  <div className="text-2xl sm:text-3xl font-orbitron font-black text-amber-600 dark:text-amber-400">
+                  <div className="text-xl sm:text-2xl font-orbitron font-black text-amber-700 dark:text-amber-400">
                     {currentCyclingSat.temperature}°C
                   </div>
-                  <div className="text-xs font-rajdhani font-bold text-amber-800 dark:text-amber-300">
+                  <div className="text-xs font-rajdhani font-bold text-amber-900 dark:text-amber-200">
                     💧 {currentCyclingSat.humidity ?? 78}% RH
                   </div>
                 </div>
               </div>
 
               {/* Cycling controls & location indicator */}
-              <div className="flex items-center justify-between pt-2 border-t border-amber-200/80 dark:border-amber-500/30 text-xs font-rajdhani font-bold text-amber-900 dark:text-amber-200">
+              <div className="flex items-center justify-between pt-1.5 border-t border-amber-300 dark:border-amber-700/60 text-xs font-rajdhani font-bold text-amber-950 dark:text-amber-200">
                 <span className="truncate max-w-[150px] sm:max-w-[200px]">
                   📍 {currentCyclingSat.location}
                 </span>
@@ -263,7 +263,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setActiveSatIndex(prev => (prev - 1 + satellites.length) % (satellites.length || 1))}
-                    className="px-2 py-1 rounded-lg bg-amber-200 hover:bg-amber-300 dark:bg-amber-500/20 dark:hover:bg-amber-500/40 text-amber-900 dark:text-amber-200 transition-colors"
+                    className="px-2 py-0.5 rounded-md bg-amber-200 hover:bg-amber-300 dark:bg-amber-800 dark:hover:bg-amber-700 text-amber-950 dark:text-amber-100 transition-colors"
                     title="Previous CanSat"
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
@@ -272,10 +272,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setIsAutoCycle(!isAutoCycle)}
-                    className={`text-[11px] font-black px-2.5 py-1 rounded-lg transition-colors ${
+                    className={`text-[11px] font-black px-2 py-0.5 rounded-md transition-colors ${
                       isAutoCycle
                         ? 'bg-amber-600 text-white dark:bg-amber-500 dark:text-slate-950'
-                        : 'bg-slate-200 text-slate-800 dark:bg-white/10 dark:text-slate-300'
+                        : 'bg-slate-300 text-slate-900 dark:bg-slate-700 dark:text-slate-100'
                     }`}
                     title={isAutoCycle ? 'Auto shifting active (shifts every 3.5s)' : 'Shifting paused'}
                   >
@@ -285,7 +285,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <button
                     type="button"
                     onClick={() => setActiveSatIndex(prev => (prev + 1) % (satellites.length || 1))}
-                    className="px-2 py-1 rounded-lg bg-amber-200 hover:bg-amber-300 dark:bg-amber-500/20 dark:hover:bg-amber-500/40 text-amber-900 dark:text-amber-200 transition-colors"
+                    className="px-2 py-0.5 rounded-md bg-amber-200 hover:bg-amber-300 dark:bg-amber-800 dark:hover:bg-amber-700 text-amber-950 dark:text-amber-100 transition-colors"
                     title="Next CanSat"
                   >
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -299,91 +299,91 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
       </div>
 
-      {/* SECTION 2: FOUR PRIMARY-COLOURED METRIC TABS (Red, Cyan/Blue, Green, Purple) */}
+      {/* SECTION 2: FOUR SOLID PRIMARY-COLOURED METRIC TABS (Red, Sky Blue, Green, Purple) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Metric Tab 1: Avg Temperature (Primary Red) */}
-        <div className="p-4 sm:p-5 rounded-2xl border-2 transition-all shadow-sm hover:shadow-md bg-rose-50/90 border-rose-400 text-rose-950 dark:bg-[#2B0E14] dark:border-rose-500/80 dark:text-white dark:shadow-[0_0_20px_rgba(244,63,94,0.2)]">
+        {/* Metric Tab 1: Avg Temperature (Solid Red) */}
+        <div className="p-4 rounded-xl border-2 transition-all shadow-sm hover:shadow-md bg-rose-100 border-rose-500 text-rose-950 dark:bg-[#380e18] dark:border-rose-500 dark:text-white dark:shadow-[0_0_15px_rgba(244,63,94,0.25)]">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-rose-900 dark:text-rose-300">
+            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-rose-950 dark:text-rose-200">
               🌡️ Avg Temperature
             </span>
-            <div className="p-2 rounded-xl bg-rose-500 text-white dark:bg-rose-600 shadow-xs">
-              <Thermometer className="w-5 h-5" />
+            <div className="p-2 rounded-lg bg-rose-600 text-white shadow-xs">
+              <Thermometer className="w-4 h-4" />
             </div>
           </div>
-          <div className="mt-2 text-3xl font-orbitron font-black text-rose-600 dark:text-rose-400">
+          <div className="mt-2 text-2xl sm:text-3xl font-orbitron font-black text-rose-700 dark:text-rose-300">
             {avgTemp} °C
           </div>
-          <p className="text-xs text-rose-800 dark:text-rose-300 font-rajdhani font-bold mt-1">
+          <p className="text-xs text-rose-900 dark:text-rose-200 font-rajdhani font-bold mt-1">
             🔥 Space & Ground Warmth
           </p>
         </div>
 
-        {/* Metric Tab 2: Avg Humidity (Primary Sky Blue / Cyan) */}
-        <div className="p-4 sm:p-5 rounded-2xl border-2 transition-all shadow-sm hover:shadow-md bg-sky-50/90 border-sky-400 text-sky-950 dark:bg-[#071E2D] dark:border-sky-500/80 dark:text-white dark:shadow-[0_0_20px_rgba(14,165,233,0.2)]">
+        {/* Metric Tab 2: Avg Humidity (Solid Sky Blue / Cyan) */}
+        <div className="p-4 rounded-xl border-2 transition-all shadow-sm hover:shadow-md bg-sky-100 border-sky-500 text-sky-950 dark:bg-[#09283d] dark:border-sky-500 dark:text-white dark:shadow-[0_0_15px_rgba(14,165,233,0.25)]">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-sky-900 dark:text-sky-300">
+            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-sky-950 dark:text-sky-200">
               💧 Avg Humidity
             </span>
-            <div className="p-2 rounded-xl bg-sky-500 text-white dark:bg-sky-600 shadow-xs">
-              <Droplets className="w-5 h-5" />
+            <div className="p-2 rounded-lg bg-sky-600 text-white shadow-xs">
+              <Droplets className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-1.5">
-            <span className="text-3xl font-orbitron font-black text-sky-600 dark:text-sky-400">
+            <span className="text-2xl sm:text-3xl font-orbitron font-black text-sky-700 dark:text-sky-300">
               {avgHumidity}
             </span>
-            <span className="text-lg font-orbitron font-bold text-sky-700 dark:text-sky-300">
+            <span className="text-base font-orbitron font-bold text-sky-800 dark:text-sky-200">
               % RH
             </span>
           </div>
-          <p className="text-xs text-sky-800 dark:text-sky-300 font-rajdhani font-bold mt-1">
+          <p className="text-xs text-sky-900 dark:text-sky-200 font-rajdhani font-bold mt-1">
             ☁️ Air Moisture & Clouds
           </p>
         </div>
 
-        {/* Metric Tab 3: Avg Pressure (Primary Emerald Green) */}
-        <div className="p-4 sm:p-5 rounded-2xl border-2 transition-all shadow-sm hover:shadow-md bg-emerald-50/90 border-emerald-400 text-emerald-950 dark:bg-[#072418] dark:border-emerald-500/80 dark:text-white dark:shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+        {/* Metric Tab 3: Avg Pressure (Solid Emerald Green) */}
+        <div className="p-4 rounded-xl border-2 transition-all shadow-sm hover:shadow-md bg-emerald-100 border-emerald-500 text-emerald-950 dark:bg-[#073020] dark:border-emerald-500 dark:text-white dark:shadow-[0_0_15px_rgba(16,185,129,0.25)]">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-emerald-900 dark:text-emerald-300">
+            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-emerald-950 dark:text-emerald-200">
               🌀 Avg Pressure
             </span>
-            <div className="p-2 rounded-xl bg-emerald-500 text-white dark:bg-emerald-600 shadow-xs">
-              <Gauge className="w-5 h-5" />
+            <div className="p-2 rounded-lg bg-emerald-600 text-white shadow-xs">
+              <Gauge className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-1.5">
-            <span className="text-3xl font-orbitron font-black text-emerald-600 dark:text-emerald-400">
+            <span className="text-2xl sm:text-3xl font-orbitron font-black text-emerald-700 dark:text-emerald-300">
               {avgPressure}
             </span>
-            <span className="text-sm font-orbitron font-bold text-emerald-700 dark:text-emerald-300">
+            <span className="text-xs font-orbitron font-bold text-emerald-800 dark:text-emerald-200">
               hPa
             </span>
           </div>
-          <p className="text-xs text-emerald-800 dark:text-emerald-300 font-rajdhani font-bold mt-1">
+          <p className="text-xs text-emerald-900 dark:text-emerald-200 font-rajdhani font-bold mt-1">
             ⚖️ Atmospheric Air Weight
           </p>
         </div>
 
-        {/* Metric Tab 4: Avg Altitude (Primary Purple / Violet) */}
-        <div className="p-4 sm:p-5 rounded-2xl border-2 transition-all shadow-sm hover:shadow-md bg-purple-50/90 border-purple-400 text-purple-950 dark:bg-[#1E0E2E] dark:border-purple-500/80 dark:text-white dark:shadow-[0_0_20px_rgba(168,85,247,0.2)]">
+        {/* Metric Tab 4: Avg Altitude (Solid Purple) */}
+        <div className="p-4 rounded-xl border-2 transition-all shadow-sm hover:shadow-md bg-purple-100 border-purple-500 text-purple-950 dark:bg-[#29113d] dark:border-purple-500 dark:text-white dark:shadow-[0_0_15px_rgba(168,85,247,0.25)]">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-purple-900 dark:text-purple-300">
+            <span className="text-xs font-rajdhani font-extrabold uppercase tracking-wider text-purple-950 dark:text-purple-200">
               🚀 Avg Altitude
             </span>
-            <div className="p-2 rounded-xl bg-purple-500 text-white dark:bg-purple-600 shadow-xs">
-              <Compass className="w-5 h-5" />
+            <div className="p-2 rounded-lg bg-purple-600 text-white shadow-xs">
+              <Compass className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline gap-1.5">
-            <span className="text-3xl font-orbitron font-black text-purple-600 dark:text-purple-400">
+            <span className="text-2xl sm:text-3xl font-orbitron font-black text-purple-700 dark:text-purple-300">
               {avgAltitude}
             </span>
-            <span className="text-sm font-orbitron font-bold text-purple-700 dark:text-purple-300">
+            <span className="text-xs font-orbitron font-bold text-purple-800 dark:text-purple-200">
               Meters
             </span>
           </div>
-          <p className="text-xs text-purple-800 dark:text-purple-300 font-rajdhani font-bold mt-1">
+          <p className="text-xs text-purple-900 dark:text-purple-200 font-rajdhani font-bold mt-1">
             ⭐ Flight Height in Sky
           </p>
         </div>
