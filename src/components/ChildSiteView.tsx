@@ -43,6 +43,8 @@ import { IsroLogo } from './IsroLogo';
 import { IndoScienceLogo } from './IndoScienceLogo';
 import { SparkLogo } from './SparkLogo';
 import { formatExternalUrl } from '../utils/urlHelper';
+import { fetchTelemetryFromAppsScript } from '../utils/telemetryPoller';
+import { syncSatelliteToSupabase, syncTelemetryPacketToSupabase } from '../lib/supabase';
 
 interface ChildSiteViewProps {
   satellite: SatelliteNode;
@@ -335,16 +337,91 @@ export const ChildSiteView: React.FC<ChildSiteViewProps> = ({
     setCurrentData(satellite);
   }, [satellite]);
 
-  // Fetch initial telemetry history & Apps Script data from backend API
+  // Direct Client-Side Telemetry Poller for Google Apps Script & Hardware Feeds
+  const pollAppsScriptDirect = async () => {
+    const targetUrl = currentData.appsScriptUrl || satellite.appsScriptUrl;
+    if (!targetUrl || !targetUrl.startsWith('http')) return;
+
+    try {
+      const telemetry = await fetchTelemetryFromAppsScript(targetUrl);
+      if (telemetry && (telemetry.temperature !== undefined || telemetry.humidity !== undefined || telemetry.pressure !== undefined)) {
+        const temp = telemetry.temperature !== undefined ? telemetry.temperature : currentData.temperature;
+        const hum = telemetry.humidity !== undefined ? telemetry.humidity : (currentData.humidity ?? 55);
+        const press = telemetry.pressure !== undefined ? telemetry.pressure : (currentData.pressure ?? 948);
+        const alt = telemetry.altitude !== undefined ? telemetry.altitude : (currentData.orbitAltitude ?? 500);
+        const aqi = telemetry.aqi !== undefined ? telemetry.aqi : currentData.aqi;
+        const bat = telemetry.batteryPercent !== undefined ? telemetry.batteryPercent : currentData.batteryLevel;
+        const rssi = telemetry.rssi !== undefined ? telemetry.rssi : currentData.rssi;
+        const now = new Date();
+        const timeStr = telemetry.timestamp ? String(telemetry.timestamp).slice(-8) : now.toLocaleTimeString();
+
+        const updatedSat: SatelliteNode = {
+          ...currentData,
+          temperature: temp,
+          humidity: hum,
+          pressure: press,
+          orbitAltitude: Math.round(alt),
+          aqi: aqi,
+          batteryLevel: bat,
+          rssi: rssi,
+          lat: telemetry.lat || currentData.lat,
+          lng: telemetry.lng || currentData.lng,
+          lastPing: `Live Ping @ ${now.toLocaleTimeString()} (Apps Script Direct Sync)`,
+          status: `Live Feed Active (${temp}°C, ${press} hPa)`
+        };
+
+        setCurrentData(updatedSat);
+        setLivePacketsCount(prev => prev + 1);
+        setTelemetryHistory(prev => {
+          const updated = [
+            ...prev,
+            {
+              time: timeStr,
+              temperature: Number(temp) || 26.5,
+              humidity: Number(hum) || 78
+            }
+          ];
+          return updated.slice(-30);
+        });
+
+        // Permanently persist to Supabase Cloud Database so other laptops see fresh readings!
+        syncSatelliteToSupabase(updatedSat).catch(() => {});
+        syncTelemetryPacketToSupabase({
+          packetId: Date.now(),
+          satelliteId: satellite.satelliteId,
+          timestamp: telemetry.timestamp || now.toISOString(),
+          temperature: temp,
+          pressure: press,
+          altitude: alt,
+          aqi: aqi,
+          humidity: hum,
+          batteryVoltage: telemetry.batteryVoltage || 4.1,
+          batteryPercent: bat || 95,
+          rssi: rssi || -65,
+          lat: telemetry.lat || currentData.lat,
+          lng: telemetry.lng || currentData.lng,
+          savedToPenDrive: true
+        }).catch(() => {});
+      }
+    } catch (e) {
+      console.warn('Apps Script direct poll warning:', e);
+    }
+  };
+
+  // Fetch initial telemetry history & Apps Script data from backend API (if available)
   const fetchModuleData = async () => {
     setIsRefreshing(true);
     try {
+      // 1. Trigger direct Apps Script poll
+      await pollAppsScriptDirect();
+
+      // 2. Also try server endpoint (for local Node server)
       const res = await fetch(`/api/child-site/${encodeURIComponent(satellite.satelliteId)}`);
       if (res.ok) {
         const data = await res.json();
         if (data.success) {
           if (data.satellite) {
-            setCurrentData(data.satellite);
+            setCurrentData(prev => ({ ...prev, ...data.satellite }));
             const savedCampus = localStorage.getItem(`child_campus_photo_${satellite.satelliteId}`);
             if (!savedCampus && data.satellite.campusPhoto) setCampusPhoto(data.satellite.campusPhoto);
             
@@ -359,22 +436,7 @@ export const ChildSiteView: React.FC<ChildSiteViewProps> = ({
           }
           if (data.appsScriptSource) {
             setAppsScriptInfo(data.appsScriptSource);
-            const savedCampus = localStorage.getItem(`child_campus_photo_${satellite.satelliteId}`);
-            if (!savedCampus && data.appsScriptSource.campusPhoto) setCampusPhoto(data.appsScriptSource.campusPhoto);
-
-            const savedStudent = localStorage.getItem(`child_student_photo_${satellite.satelliteId}`);
-            if (!savedStudent && data.appsScriptSource.studentPhoto) setStudentPhoto(data.appsScriptSource.studentPhoto);
-
-            const savedPrincipal = localStorage.getItem(`child_principal_photo_${satellite.satelliteId}`);
-            if (!savedPrincipal && data.appsScriptSource.principalPhoto) setPrincipalPhoto(data.appsScriptSource.principalPhoto);
-
-            const savedTeacher = localStorage.getItem(`child_teacher_photo_${satellite.satelliteId}`);
-            if (!savedTeacher && data.appsScriptSource.teacherPhoto) setTeacherPhoto(data.appsScriptSource.teacherPhoto);
           }
-          if (data.campusPhoto && !localStorage.getItem(`child_campus_photo_${satellite.satelliteId}`)) setCampusPhoto(data.campusPhoto);
-          if (data.studentPhoto && !localStorage.getItem(`child_student_photo_${satellite.satelliteId}`)) setStudentPhoto(data.studentPhoto);
-          if (data.principalPhoto && !localStorage.getItem(`child_principal_photo_${satellite.satelliteId}`)) setPrincipalPhoto(data.principalPhoto);
-          if (data.teacherPhoto && !localStorage.getItem(`child_teacher_photo_${satellite.satelliteId}`)) setTeacherPhoto(data.teacherPhoto);
           if (data.latestPacket) {
             setLatestPacket(data.latestPacket);
           }
@@ -390,7 +452,7 @@ export const ChildSiteView: React.FC<ChildSiteViewProps> = ({
         }
       }
     } catch (err) {
-      console.warn('Could not fetch dedicated child site module data:', err);
+      // non-blocking
     } finally {
       setIsRefreshing(false);
     }
@@ -399,7 +461,7 @@ export const ChildSiteView: React.FC<ChildSiteViewProps> = ({
   useEffect(() => {
     fetchModuleData();
 
-    // Listen to live SSE events for this satellite
+    // Listen to live SSE events for this satellite (if server is present)
     let eventSource: EventSource | null = null;
     try {
       eventSource = new EventSource('/api/events');
@@ -448,20 +510,22 @@ export const ChildSiteView: React.FC<ChildSiteViewProps> = ({
             }
           }
         } catch (e) {
-          console.warn('Error parsing child site SSE event:', e);
+          // ignore
         }
       };
-    } catch (e) {
-      console.warn('Child site event source error:', e);
-    }
+    } catch {}
 
-    const pollInterval = setInterval(fetchModuleData, 4000);
+    // 5-second polling of Apps Script telemetry directly from browser (the "bot"!)
+    const appsScriptInterval = setInterval(pollAppsScriptDirect, 5000);
+    // 10-second backend module sync
+    const moduleInterval = setInterval(fetchModuleData, 10000);
 
     return () => {
-      clearInterval(pollInterval);
+      clearInterval(appsScriptInterval);
+      clearInterval(moduleInterval);
       if (eventSource) eventSource.close();
     };
-  }, [satellite.satelliteId]);
+  }, [satellite.satelliteId, currentData.appsScriptUrl]);
 
   // Generate fallback telemetry points if fresh (Temperature & Humidity only)
   const chartPoints = telemetryHistory.length >= 3 ? telemetryHistory : Array.from({ length: 8 }).map((_, i) => ({
