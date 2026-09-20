@@ -5,8 +5,6 @@ import { Header } from './components/Header';
 import { DashboardView } from './components/DashboardView';
 import { ExplorerView } from './components/ExplorerView';
 import { RadarMapView } from './components/RadarMapView';
-import { MissionView } from './components/MissionView';
-import { CanSatHardwareView } from './components/CanSatHardwareView';
 import { SatelliteDetailModal } from './components/SatelliteDetailModal';
 import { AdminModal } from './components/AdminModal';
 import { ChildSiteView } from './components/ChildSiteView';
@@ -808,14 +806,6 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'cansat' && (
-          <CanSatHardwareView 
-            theme={theme} 
-            isLiveStream={isLiveStream}
-            onToggleLiveStream={toggleLiveStream}
-          />
-        )}
-
         {activeTab === 'explorer' && (
           <ExplorerView
             satellites={satellites}
@@ -839,8 +829,6 @@ export default function App() {
             theme={theme}
           />
         )}
-
-        {activeTab === 'vision' && <MissionView />}
       </main>
 
       {/* Footer */}
