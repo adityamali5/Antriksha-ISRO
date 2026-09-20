@@ -289,6 +289,32 @@ export default function App() {
     return null;
   });
 
+  // Secret Admin shortcut: Pressing Ctrl + Space 2 times within 1200ms anywhere on the site opens the admin panel asking for the pass
+  useEffect(() => {
+    let lastCtrlSpaceTime = 0;
+
+    const handleSecretKeyDown = (e: KeyboardEvent) => {
+      // Check if Ctrl (or Meta on Mac) + Space is pressed
+      if ((e.ctrlKey || e.metaKey) && (e.code === 'Space' || e.key === ' ' || e.keyCode === 32)) {
+        // Prevent default spacebar page scrolling
+        e.preventDefault();
+
+        const now = Date.now();
+        if (now - lastCtrlSpaceTime < 1200) {
+          // Double press detected!
+          lastCtrlSpaceTime = 0;
+          setIsAdminLoggedIn(false); // Always prompt for password as requested
+          setAdminModalOpen(true);
+        } else {
+          lastCtrlSpaceTime = now;
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleSecretKeyDown);
+    return () => window.removeEventListener('keydown', handleSecretKeyDown);
+  }, []);
+
   useEffect(() => {
     const handlePopState = () => {
       const path = window.location.pathname;
@@ -767,6 +793,21 @@ export default function App() {
             setChildSiteRouteId(s.satelliteId);
           }}
         />
+        {adminModalOpen && (
+          <AdminModal
+            onClose={() => setAdminModalOpen(false)}
+            satellites={satellites}
+            onAddSatellite={handleAddSatellite}
+            onUpdateSatellite={handleUpdateSatellite}
+            onDeleteSatellite={handleDeleteSatellite}
+            isLiveStream={isLiveStream}
+            toggleLiveStream={toggleLiveStream}
+            isAdminLoggedIn={isAdminLoggedIn}
+            setIsAdminLoggedIn={setIsAdminLoggedIn}
+            exportToCSV={exportSatellitesCSV}
+            theme={theme}
+          />
+        )}
       </div>
     );
   }

@@ -108,18 +108,8 @@ export const Header: React.FC<HeaderProps> = ({
             </p>
           </div>
 
-          {/* Right utility buttons: Admin, Theme, Mobile toggle */}
+          {/* Right utility buttons: Theme, Mobile toggle */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            {/* Admin Panel Button */}
-            <button
-              onClick={openAdminModal}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-700 dark:bg-cyan-600 dark:hover:bg-cyan-500 dark:border-cyan-400 font-rajdhani font-black text-xs transition-all shadow-sm cursor-pointer min-h-[36px]"
-              title="Open ISRO Ground Station Admin Panel"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
-              <span>{isAdminLoggedIn ? 'Admin Active' : 'Admin'}</span>
-            </button>
-
             {/* THEME TOGGLE BUTTON */}
             {toggleTheme && (
               <button
@@ -230,16 +220,6 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           <div className="pt-2 border-t border-slate-200 dark:border-blue-900 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                openAdminModal();
-                setMobileMenuOpen(false);
-              }}
-              className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-600 text-white border-2 border-cyan-700 font-rajdhani font-black text-xs"
-            >
-              <ShieldCheck className="w-4 h-4" /> Open ISRO Admin Panel
-            </button>
-
             {toggleTheme && (
               <button
                 onClick={() => {
