@@ -13,6 +13,14 @@ import { ChildSiteView } from './components/ChildSiteView';
 import { IsroLogo } from './components/IsroLogo';
 import { IndoScienceLogo } from './components/IndoScienceLogo';
 import { SparkLogo } from './components/SparkLogo';
+import {
+  fetchSatellitesFromSupabase,
+  syncSatelliteToSupabase,
+  deleteSatelliteFromSupabase,
+  subscribeToSupabaseSatellites,
+  isSupabaseConfigured
+} from './lib/supabase';
+import { fetchTelemetryFromAppsScript } from './utils/telemetryPoller';
 
 const STORAGE_KEY_SATELLITES = 'antriksha_isro_satellites_v2';
 const STORAGE_KEY_LIVE_MODE = 'antriksha_isro_live_mode_v2';
@@ -341,7 +349,7 @@ export default function App() {
     setOnlyRegistered(prev => !prev);
   }, []);
 
-  // Sync custom nodes from localStorage to backend on first boot
+  // Sync custom nodes from localStorage to Supabase and backend on first boot
   const syncLocalCustomNodesToServer = useCallback(async (currentServerSatellites: SatelliteNode[]) => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY_CUSTOM_NODES);
@@ -351,20 +359,24 @@ export default function App() {
 
       const nodesToUpload = customList.filter(c => 
         !isExampleSatellite(c.satelliteNumber || c.satelliteId, c.id) &&
-        !!c.url && !currentServerSatellites.some(s => 
-          (s.url && s.url.toLowerCase() === c.url.toLowerCase()) || 
+        (!!c.url || !!c.appsScriptUrl) && !currentServerSatellites.some(s => 
+          (s.satelliteId && (s.satelliteId === c.satelliteNumber || s.satelliteId === c.satelliteId)) ||
+          (s.url && c.url && s.url.toLowerCase() === c.url.toLowerCase()) || 
           (s.collegeName && c.collegeName && s.collegeName.toLowerCase() === c.collegeName.toLowerCase())
         )
       ).map((c, idx) => ({
-        id: Date.now() + idx,
-        satelliteId: c.satelliteNumber || `Satellite_Custom_${idx + 1}`,
-        collegeName: c.collegeName,
+        id: Number(c.id) || (Date.now() + idx),
+        satelliteId: c.satelliteNumber || c.satelliteId || `Satellite_Custom_${idx + 1}`,
+        collegeName: c.collegeName || 'Academic Ground Station',
+        studentName: c.studentName || undefined,
+        teacherName: c.teacherName || undefined,
+        principalName: c.principalName || 'Director / Principal',
         location: c.location || 'Pune, Maharashtra',
         weatherCondition: 'Clear Sky',
         aqi: c.aqi || 35,
-        temperature: Number(c.campusTemp) || 26.5,
+        temperature: Number(c.campusTemp ?? c.temperature) || 26.5,
+        humidity: Number(c.humidity) || 55,
         windSpeed: Number(c.windSpeed) || 12,
-        principalName: c.principalName || 'Director / Principal',
         lat: typeof c.lat === 'number' && !isNaN(c.lat) ? c.lat : 18.5204 + (Math.random() - 0.5) * 0.05,
         lng: typeof c.lng === 'number' && !isNaN(c.lng) ? c.lng : 73.8567 + (Math.random() - 0.5) * 0.05,
         googleMapsUrl: c.googleMapsUrl || (typeof c.lat === 'number' && typeof c.lng === 'number' ? `https://www.google.com/maps?q=${c.lat},${c.lng}` : undefined),
@@ -374,62 +386,116 @@ export default function App() {
         orbitAltitude: 500,
         isLiveStream: false,
         lastPing: 'Synced from Local Device',
-        url: c.url,
+        url: c.url || c.childWebsiteUrl || '',
+        childWebsiteUrl: c.childWebsiteUrl || c.url || '',
+        appsScriptUrl: c.appsScriptUrl || undefined,
         isCustom: true
       }));
 
       if (nodesToUpload.length > 0) {
-        await fetch('/api/satellites/batch', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ satellites: nodesToUpload })
-        });
+        // 1. Sync to Supabase cloud database directly
+        for (const node of nodesToUpload) {
+          syncSatelliteToSupabase(node).catch(() => {});
+        }
+
+        // 2. Also try batch endpoint if backend is present
+        try {
+          await fetch('/api/satellites/batch', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ satellites: nodesToUpload })
+          });
+        } catch {}
       }
     } catch (err) {
       console.warn('Initial custom nodes upload to server:', err);
     }
   }, []);
 
-  // Fetch all satellites from central backend & setup Real-Time SSE listener
+  // Fetch all satellites from Supabase & central backend + Real-Time Sync across all student laptops
   useEffect(() => {
     let isMounted = true;
 
-    const fetchServerSatellites = async () => {
+    const fetchAllSatellites = async () => {
+      let remoteSats: SatelliteNode[] = [];
+
+      // 1. Primary: Fetch directly from Supabase Cloud Database (works on static Apache pa.indoscience.in!)
+      try {
+        const supaData = await fetchSatellitesFromSupabase();
+        if (Array.isArray(supaData) && supaData.length > 0) {
+          remoteSats = supaData.filter(s => !isExampleSatellite(s.satelliteId, s.id));
+        }
+      } catch (e) {
+        console.warn('Supabase fetch failed:', e);
+      }
+
+      // 2. Secondary: If Express server is running locally, also attempt /api/satellites
       try {
         const res = await fetch('/api/satellites');
         if (res.ok) {
           const data = await res.json();
-          if (data.success && Array.isArray(data.satellites) && isMounted) {
-            const filtered = data.satellites.filter((s: SatelliteNode) => !isExampleSatellite(s.satelliteId, s.id));
-            if (filtered.length > 0) {
-              setSatellites(filtered);
-            }
-            syncLocalCustomNodesToServer(filtered);
+          if (data.success && Array.isArray(data.satellites)) {
+            const apiSats = data.satellites.filter((s: SatelliteNode) => !isExampleSatellite(s.satelliteId, s.id));
+            // Merge unique
+            apiSats.forEach((a: SatelliteNode) => {
+              if (!remoteSats.some(r => r.satelliteId === a.satelliteId)) {
+                remoteSats.push(a);
+              }
+            });
           }
         }
-      } catch (err) {
-        console.warn('Could not fetch satellites from /api/satellites:', err);
+      } catch {}
+
+      if (remoteSats.length > 0 && isMounted) {
+        setSatellites(prev => {
+          // Merge while keeping local state freshness
+          const combined = [...remoteSats];
+          prev.forEach(p => {
+            if (!combined.some(c => c.satelliteId === p.satelliteId)) {
+              combined.push(p);
+            }
+          });
+          return combined;
+        });
+        syncLocalCustomNodesToServer(remoteSats);
       }
     };
 
-    fetchServerSatellites();
+    fetchAllSatellites();
 
-    // Setup Real-Time Server-Sent Events (SSE) stream
+    // Setup Supabase Real-Time subscription (instant multi-laptop broadcast!)
+    const unsubscribeSupabase = subscribeToSupabaseSatellites(
+      (newSat) => {
+        if (!newSat || isExampleSatellite(newSat.satelliteId, newSat.id)) return;
+        setSatellites(prev => {
+          const exists = prev.some(s => s.satelliteId === newSat.satelliteId);
+          if (exists) {
+            return prev.map(s => s.satelliteId === newSat.satelliteId ? { ...s, ...newSat } : s);
+          }
+          return [newSat, ...prev];
+        });
+      },
+      (updatedSat) => {
+        if (!updatedSat || isExampleSatellite(updatedSat.satelliteId, updatedSat.id)) return;
+        setSatellites(prev => prev.map(s => s.satelliteId === updatedSat.satelliteId ? { ...s, ...updatedSat } : s));
+      },
+      (deletedSatId) => {
+        if (!deletedSatId) return;
+        setSatellites(prev => prev.filter(s => s.satelliteId !== deletedSatId));
+      }
+    );
+
+    // Setup Real-Time Server-Sent Events (SSE) stream if local Node server is present
     let eventSource: EventSource | null = null;
     try {
       eventSource = new EventSource('/api/events');
-      
-      eventSource.onopen = () => {
-        console.log('📡 Real-Time ISRO Network Sync Connected (SSE)');
-      };
-
       eventSource.onmessage = (event) => {
         try {
           const msg = JSON.parse(event.data);
           if (msg.type === 'satellite_added' && msg.data) {
             if (isExampleSatellite(msg.data.satelliteId, msg.data.id)) return;
             setSatellites(prev => {
-              const exists = prev.some(s => s.satelliteId === msg.data.satelliteId || (s.url && s.url === msg.data.url));
+              const exists = prev.some(s => s.satelliteId === msg.data.satelliteId);
               if (exists) {
                 return prev.map(s => s.satelliteId === msg.data.satelliteId ? { ...s, ...msg.data } : s);
               }
@@ -447,27 +513,61 @@ export default function App() {
           console.warn('Error parsing SSE event:', e);
         }
       };
+    } catch {}
 
-      eventSource.onerror = () => {
-        // EventSource will automatically retry connecting
-      };
-    } catch (e) {
-      console.warn('EventSource initialization error:', e);
-    }
-
-    // Polling fallback every 8 seconds for rock-solid sync across all devices
+    // Polling fallback every 10 seconds for rock-solid sync across all student laptops
     const pollInterval = setInterval(() => {
-      fetchServerSatellites();
-    }, 8000);
+      fetchAllSatellites();
+    }, 10000);
 
     return () => {
       isMounted = false;
       clearInterval(pollInterval);
+      unsubscribeSupabase();
       if (eventSource) {
         eventSource.close();
       }
     };
   }, [syncLocalCustomNodesToServer]);
+
+  // Client-Side Telemetry Polling Engine ("Bot") for registered satellites with Google Apps Script
+  useEffect(() => {
+    const pollActiveSatellitesTelemetry = async () => {
+      // Find satellites that have an active Apps Script URL
+      const candidateSats = satellites.filter(s => s.appsScriptUrl && s.appsScriptUrl.startsWith('http'));
+      if (candidateSats.length === 0) return;
+
+      // Pick candidate satellites to poll
+      for (const sat of candidateSats) {
+        try {
+          const telemetry = await fetchTelemetryFromAppsScript(sat.appsScriptUrl!);
+          if (telemetry && (telemetry.temperature !== undefined || telemetry.humidity !== undefined || telemetry.pressure !== undefined)) {
+            const updatedNode: SatelliteNode = {
+              ...sat,
+              temperature: telemetry.temperature !== undefined ? telemetry.temperature : sat.temperature,
+              humidity: telemetry.humidity !== undefined ? telemetry.humidity : sat.humidity,
+              pressure: telemetry.pressure !== undefined ? telemetry.pressure : sat.pressure,
+              aqi: telemetry.aqi !== undefined ? telemetry.aqi : sat.aqi,
+              orbitAltitude: telemetry.altitude !== undefined ? Math.round(telemetry.altitude) : sat.orbitAltitude,
+              batteryLevel: telemetry.batteryPercent !== undefined ? telemetry.batteryPercent : sat.batteryLevel,
+              rssi: telemetry.rssi !== undefined ? telemetry.rssi : sat.rssi,
+              status: `Live Feed Active (${telemetry.temperature ?? sat.temperature}°C, ${telemetry.pressure ?? sat.pressure} hPa)`,
+              lastPing: `Live Ping @ ${new Date().toLocaleTimeString()} (Apps Script Direct Sync)`
+            };
+
+            setSatellites(prev => prev.map(s => s.satelliteId === sat.satelliteId ? updatedNode : s));
+            syncSatelliteToSupabase(updatedNode).catch(() => {});
+          }
+        } catch (e) {
+          // Graceful skip
+        }
+      }
+    };
+
+    // Run telemetry poller every 12 seconds
+    const telemetryTimer = setInterval(pollActiveSatellitesTelemetry, 12000);
+    return () => clearInterval(telemetryTimer);
+  }, [satellites]);
 
   // Fetch Master Apps Script / Registered Child Websites Data on Mount (if configured)
   useEffect(() => {
@@ -531,8 +631,9 @@ export default function App() {
     setIsLiveStream(prev => !prev);
   }, []);
 
+  // Publish / Register New Satellite - Commits to Supabase cloud DB & updates all connected devices
   const handleAddSatellite = useCallback(async (newSat: SatelliteNode) => {
-    // 1. Optimistic local update
+    // 1. Optimistic local React state update
     setSatellites(prev => {
       const exists = prev.some(s => s.satelliteId === newSat.satelliteId || (s.url && s.url === newSat.url));
       if (exists) {
@@ -566,7 +667,14 @@ export default function App() {
       console.error(e);
     }
 
-    // 3. Central Server API Call -> Broadcasts to all connected laptops in real-time!
+    // 3. Persist DIRECTLY to Supabase Cloud Database (makes it instantly available across all students' laptops!)
+    try {
+      await syncSatelliteToSupabase(newSat);
+    } catch (err) {
+      console.error('Failed to sync new satellite to Supabase:', err);
+    }
+
+    // 4. Central Server API Call (for local Express server if running)
     try {
       await fetch('/api/satellites', {
         method: 'POST',
@@ -574,12 +682,20 @@ export default function App() {
         body: JSON.stringify(newSat)
       });
     } catch (err) {
-      console.error('Failed to broadcast new satellite to backend server:', err);
+      // non-blocking
     }
   }, []);
 
   const handleUpdateSatellite = useCallback(async (updatedSat: SatelliteNode) => {
     setSatellites(prev => prev.map(s => s.satelliteId === updatedSat.satelliteId ? updatedSat : s));
+    
+    // Persist to Supabase cloud database
+    try {
+      await syncSatelliteToSupabase(updatedSat);
+    } catch (err) {
+      console.error('Failed to update satellite in Supabase:', err);
+    }
+
     try {
       await fetch(`/api/satellites/${encodeURIComponent(updatedSat.satelliteId)}`, {
         method: 'PUT',
@@ -587,18 +703,26 @@ export default function App() {
         body: JSON.stringify(updatedSat)
       });
     } catch (err) {
-      console.error('Failed to update satellite on server:', err);
+      // non-blocking
     }
   }, []);
 
   const handleDeleteSatellite = useCallback(async (satelliteId: string) => {
     setSatellites(prev => prev.filter(s => s.satelliteId !== satelliteId));
+    
+    // Delete from Supabase cloud database
+    try {
+      await deleteSatelliteFromSupabase(satelliteId);
+    } catch (err) {
+      console.error('Failed to delete satellite from Supabase:', err);
+    }
+
     try {
       await fetch(`/api/satellites/${encodeURIComponent(satelliteId)}`, {
         method: 'DELETE'
       });
     } catch (err) {
-      console.error('Failed to delete satellite on server:', err);
+      // non-blocking
     }
   }, []);
 
